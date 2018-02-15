@@ -5,7 +5,7 @@ $(function(){
 $(function(){
     $("#all").click(function(){
         $(".cards").flip({trigger:'manual'});
-        $(".cards").flip('toggle');
+        $(".cards").flip();
 
         console.log("adfasfd");
     });
@@ -31,7 +31,7 @@ function getIdOfBtn(string, startPoint){
 }
 
 function printRangeValue(id,value){
-    document.getElementById('rangeValue'+getIdOfBtn(id,12)).innerHTML=value;
+    $('#rangeValue'+getIdOfBtn(id,12)).html(value);
 }
 
 
@@ -52,34 +52,33 @@ $(function(){
         }
         let msg="";
         let error=false;
-        console.log(values[2]);
+
         if(values[2]==0){
             error=true;
-            document.getElementById("skillErrorNew").style = "display:none;";
+           $("skillErrorNew").css("display","none");
             msg='<h3 id="skillErrorMsg">válassz képességet!!</h3>';
 
         }
         else {
-
             for (let i = 0; i < notes.length; i++) {
 
                 if (notes[i].worker_id == values[1] && notes[i].skill_id == values[2]) {
-                    document.getElementById("skillErrorNew").style = "display:block;";
+                     $("#skillErrorNew").css("display","block");
                     for(let j=1;j<4;j++){
                         document.getElementById("changeSkillForm").elements[j].value=values[j];
                     }
-                    msg = "létezik. csere?"
+                    msg = "létezik. csere?";
                     error=true;
                 }
             }
             if(!error){
-                document.getElementById(id).submit();
+                $(id).submit();
             }
         }
         if(error){
-            document.getElementById("shade").style="display:block";
-            document.getElementById("skillError").style = "display:block;";
-            document.getElementById("skillErrorMsg").innerHTML=msg;
+           $("#shade").css("display","block");
+            $("#skillError").css("display","block");
+            $("#skillErrorMsg").html(msg);
 
         }
 
@@ -89,8 +88,8 @@ $(function(){
 
 $(function(){
     $("#skillErrorX").click(function(){
-        document.getElementById("skillError").style="display:none;";
-        document.getElementById("shade").style="display:none;";
+        $("#skillError").css("display","none");
+        $("#shade").css("display","none");
     })
 });
 
@@ -102,7 +101,6 @@ $(function(){
         td1= $('<td id="td'+selectNumber+'a">');
         td2= $('<td id="td'+selectNumber+'b" onclick="remove('+selectNumber+');">');
         l = $('<label for="skill_id">skillname: </label>');
-        //s = $('<select name="skill_id'+selectNumber+'">');
         s = $('<select name="skill_id[]">');
         em = $('<em class="filterPlus" id="filterMinus'+selectNumber+'">&nbsp-</em>');
         $.each(skills, function (i, skill) {

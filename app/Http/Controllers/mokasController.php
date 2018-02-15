@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use App\Worker;
+use App\Test;
 use Cache;
 use App\Http\Services\workerService;
 
@@ -36,9 +37,9 @@ class mokasController extends Controller
         $submit=$request->type;
         switch ($submit){
             case 1:
-                return (new workerService)->newSkill();
+                return (new workerService)->newNote();
             case 2:
-                return (new workerService)->newCard($request);
+                return (new workerService)->newNote($request);
             case 3:
                 $qwer=(new workerService)->filter();
                 return view('asdf')->with([
@@ -48,6 +49,15 @@ class mokasController extends Controller
             case 4:
                 return (new workerService)->changeSkill();
         }
+    }
+
+    public function testing(){
+        $test=new Test();
+        $test->title="asdfasdf asdf sdf erew wa ssdf";
+
+        $test->save();
+
+        return 'saved';
     }
 
 }

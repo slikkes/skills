@@ -45,7 +45,7 @@
                         <input type="hidden" value="{{$qwe->id}}" name="worker_id">
                         <select name="skill_id">
 
-                            <option value="0" >choose one</option>
+                            <option value="0">choose one</option>
 
                             @foreach($skills as $skill)
                                 <option value="{{$skill->id}}">{{$skill->skillname}}</option>

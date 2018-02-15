@@ -15,27 +15,23 @@ class workerService
 {
 
     public function setSkills(){
+
         if ((Cache::has('skills'))) {
             return Cache::get('skills');
         }else{
             $query=Skill::all();
-            Cache::put('skills', $query,20);
+            Cache::put('skills', $query,1);
+            return $query;
         }
     }
 
-    public function newSkill(){
+    public function newNote(){
 
             DB::table('notes')->insert([
                 'worker_id' => request('worker_id'),
                 'skill_id'=> request('skill_id'),
                 'level'=>request('level'),
             ]);
-
-            DB::table('workers')
-                ->where('id','=',request('worker_id'))
-                ->update(['updated_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
-            return back();
-
     }
 
     public function changeSkill(){
@@ -73,7 +69,7 @@ class workerService
     public function filter(){
 
         $skill_id=request('skill_id');
-        //$skill_id=0;
+
         if($skill_id[0]>0){
 
             $qwer=Worker::select('workers.*','notes.skill_id', 'notes.level')
@@ -82,14 +78,6 @@ class workerService
                 ->whereBetween('notes.level',[request('minLevel'),request('maxLevel')])
                 ->orderBy('notes.level','desc')
                 ->get();
-
-            /*$qwer=Worker::select('workers.*','notes.skill_id', 'notes.level')
-                ->join('notes','workers.id','=','notes.worker_id')
-                ->where('notes.skill_id','=',request('skill_id'))
-                ->whereBetween('notes.level',[request('minLevel'),request('maxLevel')])
-                ->orderBy('notes.level','desc')
-                ->get();*/
-
 
         }else{
 

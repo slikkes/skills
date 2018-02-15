@@ -4,20 +4,20 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class TestServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
-
+        \App\Test::observe(\App\TestObserver\TestObserver::class);
     }
 
     /**
-     * Register any application services.
+     * Register the application services.
      *
      * @return void
      */

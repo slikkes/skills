@@ -1,6 +1,6 @@
 
 <?php
-use Illuminate\Http\Request;
+use App\Worker;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,10 +26,16 @@ Route::post('asdf','mokasController@form');
     return $request->all();
 });*/
 
-Route::get('testing',function(){
+Route::get('testing','mokasController@testing');
 
-    //return Cache::put('cachekey','im in the cache',1);
-    //return Cache::get('cachekey');
+/*Route::get('testing',function(){
 
-});
+    return Cache::put('cachekey','im in the cache',1);
+    return Cache::get('cachekey');
 
+});*/
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
