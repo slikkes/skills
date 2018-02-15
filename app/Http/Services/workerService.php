@@ -73,15 +73,22 @@ class workerService
     public function filter(){
 
         $skill_id=request('skill_id');
-        if($skill_id>0){
-
+        //$skill_id=0;
+        if($skill_id[0]>0){
 
             $qwer=Worker::select('workers.*','notes.skill_id', 'notes.level')
+                ->join('notes','workers.id','=','notes.worker_id')
+                ->whereIn('notes.skill_id',request('skill_id'))
+                ->whereBetween('notes.level',[request('minLevel'),request('maxLevel')])
+                ->orderBy('notes.level','desc')
+                ->get();
+
+            /*$qwer=Worker::select('workers.*','notes.skill_id', 'notes.level')
                 ->join('notes','workers.id','=','notes.worker_id')
                 ->where('notes.skill_id','=',request('skill_id'))
                 ->whereBetween('notes.level',[request('minLevel'),request('maxLevel')])
                 ->orderBy('notes.level','desc')
-                ->get();
+                ->get();*/
 
 
         }else{

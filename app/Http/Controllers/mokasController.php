@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use App\Worker;
-use App\Note;
-use App\Skill;
 use Cache;
-use Carbon\Carbon;
 use App\Http\Services\workerService;
 
 class mokasController extends Controller

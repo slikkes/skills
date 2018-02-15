@@ -19,6 +19,8 @@ Route::get('/', function () {
 Route::get('asdf','mokasController@index');
 
 Route::post('asdf','mokasController@form');
+
+
 /*Route::post('asdf',function(Request $request){
     return $request->all();
 });*/

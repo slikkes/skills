@@ -102,32 +102,42 @@
 
         <form method="POST" action="/asdf">
             {{ csrf_field() }}
-            <div id="filterSelects">
-            <label for="skillname">skillname:</label>
-            <select name="skill_id" id="skill_id">
+            <input type="hidden" value="1" name="numberOfSelectors" id="numberOfSelectors">
+            <table id="filterSelects">
+                <tr>
+                    <td>
+                        <label for="skillname">skillname:</label>
 
-                <option value="0" >all</option>
+                        <select name="skill_id[]" id="skill_id">
 
-                <script>
-                    let skills=[];
-                    skills.push(new Skill(0,"all"))
-                </script>
+                            <option value="0" >all</option>
 
-                @foreach($skills as $skill)
+                            <script>
+                                let skills=[];
+                                skills.push(new Skill(0,"all"))
+                            </script>
 
-                    <script>skills.push(new Skill({{$skill->id}},"{{$skill->skillname}}"));</script>
+                            @foreach($skills as $skill)
 
-                    <option value="{{$skill->id}}"
-                            @if($revalue>0)
-                                @if($skill->id==$revalue[0])selected="selected" @endif
-                            @endif
-                    >{{$skill->skillname}}
+                                <script>skills.push(new Skill({{$skill->id}},"{{$skill->skillname}}"));</script>
 
-                    </option>
-                @endforeach
+                                <option value="{{$skill->id}}"
+                                        @if($revalue>0)
+                                        @if($skill->id==$revalue[0])selected="selected" @endif
+                                        @endif
+                                >{{$skill->skillname}}
 
-            </select><em id="filterPlus" style="cursor:pointer;">+</em><br>
-    </div>
+                                </option>
+                            @endforeach
+
+                        </select>
+                    </td>
+                    <td>
+                        <em id="filterPlus" class="filterPlus">+</em>
+                    </td>
+                </tr>
+
+            </table>
             <br>
             <label for="level">min level:</label>
             <input type="number" name="minLevel" id="minLevel" value="{{$revalue[1]}}" min="1" max="10" >
@@ -204,5 +214,5 @@
 
     </script>
 
-    <a href="{{url('/')}}"><div id="backButton">back</div></a>
+    <a href="{{url('/')}}"><div id="backButton">back</div></a><div id="all">all</div>
 @stop
