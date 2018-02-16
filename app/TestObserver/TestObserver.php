@@ -11,6 +11,6 @@ use App\Test;
 
 class TestObserver{
     public function creating(Test $test){
-            return $test->slug=str_slug($test->title);
+        return $test->slug=str_slug($test->title);
     }
 }

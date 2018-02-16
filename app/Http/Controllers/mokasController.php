@@ -16,7 +16,7 @@ class mokasController extends Controller
     public function index(){
 
         $skills=(new workerService)->setSkills();
-        $qwer=Worker::with('notes')->get();
+        $qwer=Worker::with('notes')->orderBy('number','asd')->get();
 
         return view('asdf')->with([
             'qwer'=>$qwer,
@@ -39,7 +39,7 @@ class mokasController extends Controller
             case 1:
                 return (new workerService)->newNote();
             case 2:
-                return (new workerService)->newNote($request);
+                return (new workerService)->newCard($request);
             case 3:
                 $qwer=(new workerService)->filter();
                 return view('asdf')->with([
@@ -47,17 +47,10 @@ class mokasController extends Controller
                     'skills'=>$skills,
                     'revalue'=>[request('skill_id'),request('minLevel'),request('maxLevel')]]);
             case 4:
-                return (new workerService)->changeSkill();
+                return (new workerService)->changeNote();
         }
     }
 
-    public function testing(){
-        $test=new Test();
-        $test->title="asdfasdf asdf sdf erew wa ssdf";
 
-        $test->save();
-
-        return 'saved';
-    }
 
 }

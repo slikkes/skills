@@ -5,7 +5,7 @@ $(function(){
 $(function(){
     $("#all").click(function(){
         $(".cards").flip({trigger:'manual'});
-        $(".cards").flip();
+        $(".cards").flip('toggle');
 
         console.log("adfasfd");
     });
@@ -16,7 +16,6 @@ $(function(){
         let value=$(this).val();
         ($(this).val()=="new") ? $(this).val('cancel') : $(this).val('new');
         $( "#newNoteForm"+getIdOfBtn(this.id,10) ).slideToggle("slow",function(){
-
         });
     });
 });
@@ -48,7 +47,7 @@ $(function(){
             //2 skill_id
             //3 level
 
-            values[i]=document.getElementById(id).elements[i].value;
+            values[i]=$(id).elements[i].val();
         }
         let msg="";
         let error=false;
@@ -67,12 +66,13 @@ $(function(){
                     for(let j=1;j<4;j++){
                         document.getElementById("changeSkillForm").elements[j].value=values[j];
                     }
+                    document.getElementById("changeSkillForm").elements[4].value=notes[i].id;
                     msg = "létezik. csere?";
                     error=true;
                 }
             }
             if(!error){
-                $(id).submit();
+                document.getElementById(id).submit();
             }
         }
         if(error){

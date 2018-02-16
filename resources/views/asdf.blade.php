@@ -3,7 +3,8 @@
 @section('import')
    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/asdfStyle.css') }}">
    <script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
-   <script src="{{URL::asset('js/Note.js')}}"></script>
+ {{--<script src="{{URL::asset('js/Note.js')}}"></script>--}}
+   <script src="{{URL::asset('js/Note2.js')}}"></script>
    <script src="{{URL::asset('js/Skill.js')}}"></script>
    <script src="{{URL::asset('js/asdf.js')}}"></script>
    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -12,13 +13,15 @@
 @section('content')
     <div id="cardHolder">
 
-        <script>let notes=[];</script>
+        <script>
+
+            let notes=[];</script>
 
     @foreach ($qwer as $qwe)
         <div class="cards" id="card{{$qwe->id}}">
             <div class="front">
                 <h2><u>{{$qwe-> surname}} {{$qwe->firstname}}</u></h2>
-                number:{{$qwe->number}}<br>
+                point:{{$qwe->number}}<br>
                 created:{{$qwe->created_at}}<br>
                 updated:{{$qwe->updated_at}}
             </div>
@@ -28,7 +31,8 @@
                 @foreach ($qwe->notes as $note)
 
                     <script>
-                        notes.push(new Note({{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
+
+                        notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
                     </script>
 
                     {{$skills[$note->skill_id-1]->skillname}}<br>
@@ -177,6 +181,7 @@
                     <input type="hidden" name="worker_id" >
                     <input type="hidden" name="skill_id" >
                     <input type="hidden" name="level" >
+                    <input type="hidden" name="id">
                     <input type="hidden" name="type" value="4">
                     <input type="submit" name="changeSkill" value="updateSkill">
                 </form>

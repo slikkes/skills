@@ -26,7 +26,14 @@ Route::post('asdf','mokasController@form');
     return $request->all();
 });*/
 
-Route::get('testing','mokasController@testing');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::get('testing','TestController@index');
 
 /*Route::get('testing',function(){
 
@@ -34,8 +41,3 @@ Route::get('testing','mokasController@testing');
     return Cache::get('cachekey');
 
 });*/
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use App\Worker;
 use App\Skill;
+use App\Note;
 use Cache;
 use Carbon\Carbon;
 
@@ -27,27 +28,37 @@ class workerService
 
     public function newNote(){
 
-            DB::table('notes')->insert([
-                'worker_id' => request('worker_id'),
-                'skill_id'=> request('skill_id'),
-                'level'=>request('level'),
-            ]);
+       /* DB::table('notes')->insert([
+            'worker_id' => request('worker_id'),
+            'skill_id'=> request('skill_id'),
+            'level'=>request('level'),
+        ]);*/
+
+           $note= new Note();
+           $note->worker_id=request('worker_id');
+           $note->skill_id=request('skill_id');
+           $note->level=request('level');
+           $note->save();
+
+           return back();
     }
 
-    public function changeSkill(){
+    public function changeNote()
+    {
 
-        DB::table('notes')
-            ->where([
-                ['worker_id','=',request('worker_id')],
-                ['skill_id','=',request('skill_id')],
-            ])
-            ->update(['level'=>request('level')]);
+        $note=Note::find(request('id'));
+        $note->level=request('level');
+        $note->save();
 
-        DB::table('workers')
-            ->where('id','=',request('worker_id'))
-            ->update(['updated_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
-        return back();}
+        return back();
 
+        /* DB::table('workers')
+             ->where('id','=',request('worker_id'))
+             ->update(['updated_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+         return back();}*/
+
+
+    }
 
     public function newCard($request){
         $request->validate([
