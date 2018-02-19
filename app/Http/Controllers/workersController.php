@@ -7,20 +7,24 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use App\Worker;
 use App\Test;
+use App\Note;
+use App\Point;
 use Cache;
 use App\Http\Services\workerService;
 
-class mokasController extends Controller
+class workersController extends Controller
 {
 
     public function index(){
 
         $skills=(new workerService)->setSkills();
-        $qwer=Worker::with('notes')->orderBy('number','asd')->get();
+        $qwer=Worker::with('notes')->get();
+        $points=Point::all();
 
         return view('asdf')->with([
             'qwer'=>$qwer,
             'skills'=>$skills,
+            'points'=>$points,
             'asd'=>0,
             'revalue'=>[0,1,10]]);
     }
@@ -39,7 +43,7 @@ class mokasController extends Controller
             case 1:
                 return (new workerService)->newNote();
             case 2:
-                return (new workerService)->newCard($request);
+                return (new workerService)->newWorker($request);
             case 3:
                 $qwer=(new workerService)->filter();
                 return view('asdf')->with([
@@ -52,5 +56,13 @@ class mokasController extends Controller
     }
 
 
+    public function deleteWorker(Request $request){
+        Worker::find(request('id'))->delete();
+    }
+
+    public function deleteNote(Request $request){
+        Note::find(request('id'))->delete();
+        return $request->all();
+    }
 
 }

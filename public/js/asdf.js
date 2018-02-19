@@ -41,13 +41,14 @@ $(function(){
         let id="newNote"+getIdOfBtn(this.id,11);
         let values=[];
         for(let i=1;i<4;i++){
-
             //0 token
             //1 worker_id
             //2 skill_id
             //3 level
 
-            values[i]=$(id).elements[i].val();
+            console.log(id);
+
+            values[i]=document.getElementById(id).elements[i].value;
         }
         let msg="";
         let error=false;

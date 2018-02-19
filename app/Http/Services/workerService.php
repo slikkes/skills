@@ -60,7 +60,7 @@ class workerService
 
     }
 
-    public function newCard($request){
+    public function newWorker($request){
         $request->validate([
             'number'=>'required',
             'surname'=>'required|max:20',
@@ -97,4 +97,11 @@ class workerService
 
         return $qwer;
     }
+
+    public function deleteWorker(){
+         Worker::find(request('id'))->delete();
+         return back();
+    }
+
+
 }

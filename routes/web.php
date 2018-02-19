@@ -17,13 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('asdf','mokasController@index');
+Route::get('asdf','workersController@index');
 
-Route::post('asdf','mokasController@form');
+Route::post('asdf','workersController@form');
+
+Route::post('deleteWorker','workersController@deleteWorker');
 
 
-/*Route::post('asdf',function(Request $request){
-    return $request->all();
+Route::post('deleteNote','workersController@deleteNote');
+
+
+
+/*Route::post('deleteNote',function(){
+    return "asd";
 });*/
 
 
@@ -33,7 +39,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::get('testing','TestController@index');
+Route::get('update_points','TestController@updatePoints');
+Route::post('deleting','TestController@delete');
 
 /*Route::get('testing',function(){
 

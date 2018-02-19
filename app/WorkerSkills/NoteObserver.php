@@ -10,13 +10,14 @@ namespace App\WorkerSkills;
 use App\Note;
 use App\Worker;
 use App\Test;
+use App\Point;
 
 class NoteObserver{
 
     public function saved(Note $note){
 
 
-        $this->updateWorker($note->worker_id);
+        $this->updatePoints($note->worker_id);
 
     }
 
@@ -40,10 +41,10 @@ class NoteObserver{
         $test->title=$note->worker_id."deleted";
         $test->save();
 
-        $this->updateWorker($note->worker_id);
+        $this->updatePoints($note->worker_id);
     }
 
-    public function updateWorker($worker_id){
+    public function updatePoints($worker_id){
 
 
         $sum=Note::where('worker_id','=',$worker_id)
@@ -53,9 +54,9 @@ class NoteObserver{
             ->count('level');
 
         $rank=$count*5*$sum;
-        $worker=Worker::find($worker_id);
-        $worker->number=$rank;
-        $worker->save();
+        $point=Point::find($worker_id);
+        $point->point=$rank;
+        $point->save();
 
     }
 }

@@ -6,6 +6,7 @@ use App\Test;
 use Illuminate\Support\Facades\DB;
 use App\Note;
 use App\Worker;
+use App\Point;
 use App\WorkerSkills\NoteObserver;
 
 use Illuminate\Http\Request;
@@ -15,32 +16,47 @@ class TestController extends Controller
     public function index(){
 
 
-        $note=new Note();
-        $note=Note::where()
-
-
-        Note::where([
-            ['worker_id', '=', request('worker_id')],
-            ['skill_id', '=', request('skill_id')],
-        ])->update(['level' => request('level')]);
-
 
     }
 
     public function create(){
-        DB::table('tests')->insert(['title'=>'asdfasdf sdf serw fdgsdg']);
-       /* $test=new Test();
-        $test->title="asdfasdf asdf sdf erew wa ssdf";
+        //DB::table('tests')->insert(['title'=>'asdfasdf sdf serw fdgsdg']);
+        $test=new Test();
+        $test->title=request('test');
 
-        $test->save();*/
+        $test->save();
+       return response()->json(['response' => 'This is get method']);
     }
 
-    public function testfunction(Illuminate\Http\Request $request)
-    {
-        if ($request->isMethod('post')){
-            return response()->json(['response' => 'This is post method']);
+    public function delete(Request $request){
+        //Test::first()->delete();
+        Test::find(request('id'))->delete();
+        return $request->all() ;
+    }
+
+
+    public function updatePoints(){
+
+
+        $workerNumber=Worker::count();
+
+        for($i=1;$i<=$workerNumber;$i++){
+
+            $sum=Note::where('worker_id','=',$i)
+                ->sum('level');
+
+            $count=Note::where('worker_id','=',$i)
+                ->count('level');
+
+            $rank=$count*5*$sum;
+            $point=new Point;
+            $point->point=$rank;
+            $point->save();
+
+
         }
-
-        return response()->json(['response' => 'This is get method']);
+    return "done";
     }
+
+
 }

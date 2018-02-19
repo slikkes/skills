@@ -6,43 +6,57 @@
  {{--<script src="{{URL::asset('js/Note.js')}}"></script>--}}
    <script src="{{URL::asset('js/Note2.js')}}"></script>
    <script src="{{URL::asset('js/Skill.js')}}"></script>
+   <script src="{{URL::asset('js/admin.js')}}"></script>
    <script src="{{URL::asset('js/asdf.js')}}"></script>
    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
    <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+
 @stop
 @section('content')
     <div id="cardHolder">
 
-        <script>
-
-            let notes=[];</script>
+        <script>let notes=[];</script>
 
     @foreach ($qwer as $qwe)
+
         <div class="cards" id="card{{$qwe->id}}">
+
             <div class="front">
                 <h2><u>{{$qwe-> surname}} {{$qwe->firstname}}</u></h2>
-                point:{{$qwe->number}}<br>
+                point:{{$points[$qwe->id]->point}}<br>
                 created:{{$qwe->created_at}}<br>
-                updated:{{$qwe->updated_at}}
+                updated:{{$qwe->updated_at}}<br><br>
+                @auth
+                    <p id="deleteCard{{$qwe->id}}" class="cardOp" onclick="event.stopPropagation()" data-token="{{ csrf_token() }}">DELETE</p><br>
+                    <p id="modifyCard{{$qwe->id}}" class="cardOp" onclick="event.stopPropagation()">MODIFY</p>
+                @endauth
             </div>
 
             <div class="back" align="left">
-                <h3><u>{{$qwe->surname}} {{$qwe->firstname}}</u></h3>
-                @foreach ($qwe->notes as $note)
+                <table>
+                    <h3><u>{{$qwe->surname}} {{$qwe->firstname}}</u></h3>
+                    @foreach ($qwe->notes as $note)
+                        <tr id="noteHolder{{$note->id}}">
+                            <td class="skillPoints">
 
-                    <script>
+                                <script>
+                                    notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
+                                </script>
 
-                        notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
-                    </script>
-
-                    {{$skills[$note->skill_id-1]->skillname}}<br>
-                    @for ($i=0;$i<$note->level;$i++)
-                            <img width="20" src="{{URL::asset('img/set.png')}}">
-                    @endfor
-                        <br><br>
-                @endforeach
-
+                                {{$skills[$note->skill_id-1]->skillname}}<br>
+                                @for ($i=0;$i<$note->level;$i++)
+                                    <img width="19" src="{{URL::asset('img/set.png')}}">
+                                @endfor
+                                <br><br>
+                            </td>
+                            <td>
+                            @auth<em class="cardOpBack" id="deleteNote{{$note->id}}" data-token="{{ csrf_token() }}">DELETE</em>@endauth
+                            </td>
+                    </tr>
+                    @endforeach
+                </table>
                 <input type="button" value="new" class="newNoteBtn" id="newNoteBtn{{$qwe->id}}" onclick="event.stopPropagation()">
+
                 <div class="newNoteForm" id="newNoteForm{{$qwe->id}}" >
                     <form name="newNote{{$qwe->id}}" id="newNote{{$qwe->id}}" method="POST" action="/asdf" onclick="event.stopPropagation()">
                         {{ csrf_field() }}
@@ -153,6 +167,9 @@
             <input type="hidden" name="type" value="3">
         </form>
 
+        @auth
+            qweraqwre
+        @endauth
 
 
 
