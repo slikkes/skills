@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TestServiceProvider::class,
         App\Providers\NoteServiceProvider::class,
+        App\Providers\WorkerServiceProvider::class,
 
     ],
 

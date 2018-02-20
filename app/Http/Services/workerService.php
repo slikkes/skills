@@ -9,7 +9,7 @@ use App\Worker;
 use App\Skill;
 use App\Note;
 use Cache;
-use Carbon\Carbon;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 
 class workerService
@@ -61,18 +61,25 @@ class workerService
     }
 
     public function newWorker($request){
+
         $request->validate([
-            'number'=>'required',
             'surname'=>'required|max:20',
             'firstname'=>'required|max:20',
-
         ]);
-        DB::table('workers')->insert([
-            'number' => request('number'),
+
+        $worker=new Worker();
+        $worker->surname=request('surname');
+        $worker->firstname=request('firstname');
+        $worker->save();
+
+        // return response()->json(['surname'=>$worker->surname, 'firstname'=> 'id'=>$worker->id]);
+        return response()->json($worker);
+        //return $worker->toArray();
+        /*DB::table('workers')->insert([
             'surname'=> request('surname'),
             'firstname'=> request('firstname'),
-        ]);
-        return back();
+        ]);*/
+       // return $request->all();
     }
 
 
@@ -92,7 +99,9 @@ class workerService
 
         }else{
 
-            $qwer=Worker::all();
+            $qwer=Worker::select('workers.*','points.point')
+                ->join('points','workers.id','=','points.worker_id')
+                ->orderBy('points.point','desc')->get();
         }
 
         return $qwer;

@@ -18,13 +18,14 @@ class workersController extends Controller
     public function index(){
 
         $skills=(new workerService)->setSkills();
-        $qwer=Worker::with('notes')->get();
-        $points=Point::all();
+       // $qwer=Worker::with('notes')->with('points')->get();
+        $qwer=Worker::select('workers.*','points.point')
+            ->join('points','workers.id','=','points.worker_id')
+            ->orderBy('points.point','desc')->get();
 
         return view('asdf')->with([
             'qwer'=>$qwer,
             'skills'=>$skills,
-            'points'=>$points,
             'asd'=>0,
             'revalue'=>[0,1,10]]);
     }
@@ -44,6 +45,7 @@ class workersController extends Controller
                 return (new workerService)->newNote();
             case 2:
                 return (new workerService)->newWorker($request);
+                //return $request->all();
             case 3:
                 $qwer=(new workerService)->filter();
                 return view('asdf')->with([

@@ -24,21 +24,23 @@ class NoteObserver{
     public function created(Note $note){
 
         $test=new Test();
-        $test->title=$note->worker_id."created";
+        $test->title="created".$note->worker_id;
         $test->save();
 
 
     }
 
     public function updated(Note $note){
+
         $test=new Test();
         $test->title="updated".$note->worker_id;
         $test->save();
     }
 
     public function deleted(Note $note){
+
         $test=new Test();
-        $test->title=$note->worker_id."deleted";
+        $test->title="deleted".$note->worker_id;
         $test->save();
 
         $this->updatePoints($note->worker_id);
@@ -54,9 +56,16 @@ class NoteObserver{
             ->count('level');
 
         $rank=$count*5*$sum;
-        $point=Point::find($worker_id);
-        $point->point=$rank;
-        $point->save();
+
+        if (Point::find($worker_id)->exists()) {
+            $point=Point::find($worker_id);
+            $point->point=$rank;
+            $point->save();
+        }else{
+            $point=new Point();
+            $point->point=$rank;
+            $point->save();
+        }
 
     }
 }

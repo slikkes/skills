@@ -5,13 +5,13 @@ $(function() {
         let id= getIdOfBtn(this.id,10);
 
         $.ajax({
-          type: "post",
-          url: "deleteWorker",
-          data: {_token: token, id: id},
-          success:function(){
+            type: "post",
+            url: "deleteWorker",
+            data: {_token: token, id: id},
+            success:function(){
 
-              $("#card"+id).remove();
-          }
+                $("#card"+id).remove();
+            }
         })
     })
 });

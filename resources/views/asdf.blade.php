@@ -8,6 +8,8 @@
    <script src="{{URL::asset('js/Skill.js')}}"></script>
    <script src="{{URL::asset('js/admin.js')}}"></script>
    <script src="{{URL::asset('js/asdf.js')}}"></script>
+   <script src="{{URL::asset('js/filter.js')}}"></script>
+   <script src="{{URL::asset('js/Worker.js')}}"></script>
    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
    <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 
@@ -23,7 +25,7 @@
 
             <div class="front">
                 <h2><u>{{$qwe-> surname}} {{$qwe->firstname}}</u></h2>
-                point:{{$points[$qwe->id]->point}}<br>
+                point:{{$qwe->points->point}}<br>
                 created:{{$qwe->created_at}}<br>
                 updated:{{$qwe->updated_at}}<br><br>
                 @auth
@@ -82,13 +84,13 @@
         </div>
     @endforeach
 
-    <div class="cards">
+    <div class="cards" id="newCardDiv">
         <div class="front">
             <h1 style="margin:100px 145px">+</h1>
         </div>
 
         <div class="back" >
-            <form method="POST" action="/asdf" onclick="event.stopPropagation()">
+            <form id="newCard" method="POST" action="/asdf" onclick="event.stopPropagation()">
                 {{ csrf_field() }}
                 <table id="input">
                     <tr>
@@ -100,17 +102,14 @@
                         <td><input type="text" name="firstname"></td>
                     </tr>
                     <tr>
-                        <td>number:</td>
-                        <td><input type="text" name="number"></td>
-                    </tr>
-                    <tr>
                         <td></td>
-                        <td><input type="submit" name="submitBtn" value="newCard"></td>
+                        {{--<td><input type="submit" name="submitBtn" id="newCardb" data-token="{{ csrf_token() }} value="newCard"></td>--}}
                     </tr>
                 </table>
 
                 <input type="hidden" name="type" value="2">
             </form>
+            <td><button data-token="{{ csrf_token() }}" id="newCardb">newCard</button></td>
         </div>
     </div>
     </div>
@@ -171,12 +170,6 @@
             qweraqwre
         @endauth
 
-
-
-    </div>
-    <div id="shade">
-
-
         @if ($errors->any())
             <div class="error">
                 <ul>
@@ -188,6 +181,12 @@
                 </ul>
             </div>
         @endif
+
+    </div>
+    <div id="shade">
+
+
+
 
         <div class="error" id="skillError">
             <p id="skillErrorX">&times;</p>

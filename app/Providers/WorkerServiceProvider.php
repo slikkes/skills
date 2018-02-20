@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Note;
-use App\WorkerSkills\NoteObserver;
+use App\Worker;
+use App\WorkerSkills\WorkerObserver;
 
-class NoteServiceProvider extends ServiceProvider
+class WorkerServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -15,13 +15,7 @@ class NoteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Note::observe(NoteObserver::class);
-       /* Note::creating(function(){
-            $test=new Test();
-            $test->title="asdfasdf";
-            $test->save();
-
-        });*/
+        Worker::observe(WorkerObserver::class);
     }
 
     /**

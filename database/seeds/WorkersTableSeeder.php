@@ -27,7 +27,6 @@ class WorkersTableSeeder extends Seeder
             }
 
             DB::table('workers')->insert([
-                'number' => rand(1, 250),
                 'surname' => $surname,
                 'firstname' => $firstname,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

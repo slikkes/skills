@@ -6,3 +6,80 @@ class Note{
         this.level=level;
     }
 }
+
+
+//toggle new note form
+
+$(function(){
+    $(".newNoteBtn" ).click(function() {
+        let value=$(this).val();
+        ($(this).val()=="new") ? $(this).val('cancel') : $(this).val('new');
+        $( "#newNoteForm"+getIdOfBtn(this.id,10) ).slideToggle("slow",function(){
+        });
+    });
+});
+
+
+
+
+
+
+//new note errors
+
+$(function(){
+    $(".newSkillBtn").click(function(){
+        let id="newNote"+getIdOfBtn(this.id,11);
+        let values=[];
+        for(let i=1;i<4;i++){
+            //0 token
+            //1 worker_id
+            //2 skill_id
+            //3 level
+
+            console.log(id);
+
+            values[i]=document.getElementById(id).elements[i].value;
+        }
+        let msg="";
+        let error=false;
+
+        if(values[2]==0){
+            error=true;
+            $("skillErrorNew").css("display","none");
+            msg='<h3 id="skillErrorMsg">válassz képességet!!</h3>';
+
+        }
+        else {
+            for (let i = 0; i < notes.length; i++) {
+
+                if (notes[i].worker_id == values[1] && notes[i].skill_id == values[2]) {
+                    $("#skillErrorNew").css("display","block");
+                    for(let j=1;j<4;j++){
+                        document.getElementById("changeSkillForm").elements[j].value=values[j];
+                    }
+                    document.getElementById("changeSkillForm").elements[4].value=notes[i].id;
+                    msg = "létezik. csere?";
+                    error=true;
+                }
+            }
+            if(!error){
+                document.getElementById(id).submit();
+            }
+        }
+        if(error){
+            $("#shade").css("display","block");
+            $("#skillError").css("display","block");
+            $("#skillErrorMsg").html(msg);
+
+        }
+
+    })
+});
+
+
+$(function(){
+    $("#skillErrorX").click(function(){
+        $("#skillError").css("display","none");
+        $("#shade").css("display","none");
+    })
+});
