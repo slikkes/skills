@@ -17,16 +17,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::get('asdf','workersController@index');
 
 Route::post('asdf','workersController@form');
 
-Route::post('deleteWorker','workersController@deleteWorker');
 
+
+
+Route::post('deleteWorker','workersController@deleteWorker');
 
 Route::post('deleteNote','workersController@deleteNote');
 
-
+Route::post('modifyWorkerName','workersController@form');
 
 /*Route::post('deleteNote',function(){
     return "asd";
@@ -38,7 +42,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-
+Route::get('test', 'TestController@index');
 Route::get('update_points','TestController@updatePoints');
 Route::post('deleting','TestController@delete');
 

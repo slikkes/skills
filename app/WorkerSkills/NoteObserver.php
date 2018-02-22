@@ -44,6 +44,7 @@ class NoteObserver{
         $test->save();
 
         $this->updatePoints($note->worker_id);
+        return "ads";
     }
 
     public function updatePoints($worker_id){

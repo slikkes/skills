@@ -3,6 +3,7 @@
 <head>
     <title>@yield('title')</title>
     @yield('import')
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
 </head>
 <body>

@@ -32,10 +32,11 @@ class workersController extends Controller
 
     //$request->type
     //
-    //1 new skill
+    //1 new note
     //2 new card
     //3 filter
     //4 new skill confirm
+    //5 modify workername
 
     public function form(Request $request){
         $skills=(new workerService)->setSkills();
@@ -45,7 +46,6 @@ class workersController extends Controller
                 return (new workerService)->newNote();
             case 2:
                 return (new workerService)->newWorker($request);
-                //return $request->all();
             case 3:
                 $qwer=(new workerService)->filter();
                 return view('asdf')->with([
@@ -54,9 +54,11 @@ class workersController extends Controller
                     'revalue'=>[request('skill_id'),request('minLevel'),request('maxLevel')]]);
             case 4:
                 return (new workerService)->changeNote();
+            case 5:
+                return (new workerService)->modifyWorkerName();
+
         }
     }
-
 
     public function deleteWorker(Request $request){
         Worker::find(request('id'))->delete();
@@ -64,6 +66,15 @@ class workersController extends Controller
 
     public function deleteNote(Request $request){
         Note::find(request('id'))->delete();
+
+        return $request->all();
+    }
+
+
+
+
+
+    public function test (Request $request){
         return $request->all();
     }
 

@@ -19,24 +19,36 @@
 
         <script>let notes=[];</script>
 
-    @foreach ($qwer as $qwe)
+        @foreach ($qwer as $qwe)
 
         <div class="cards" id="card{{$qwe->id}}">
 
             <div class="front">
-                <h2><u>{{$qwe-> surname}} {{$qwe->firstname}}</u></h2>
-                point:{{$qwe->points->point}}<br>
+
+                <div class="names" >
+                    <em id="fsurname{{$qwe->id}}" class="names{{$qwe->id}}"> {{$qwe-> surname}}&nbsp; </em>
+                    <em id="ffirstname{{$qwe->id}}" class="names{{$qwe->id}}"> {{$qwe->firstname}} </em>
+                </div>
+
+                point:<em id="point{{$qwe->id}}">{{$qwe->points->point}}</em><br>
                 created:{{$qwe->created_at}}<br>
                 updated:{{$qwe->updated_at}}<br><br>
+
                 @auth
-                    <p id="deleteCard{{$qwe->id}}" class="cardOp" onclick="event.stopPropagation()" data-token="{{ csrf_token() }}">DELETE</p><br>
+                    <p id="deleteCard{{$qwe->id}}" class="cardOp" onclick="event.stopPropagation()" >DELETE</p><br>
                     <p id="modifyCard{{$qwe->id}}" class="cardOp" onclick="event.stopPropagation()">MODIFY</p>
                 @endauth
+
             </div>
 
             <div class="back" align="left">
-                <table>
-                    <h3><u>{{$qwe->surname}} {{$qwe->firstname}}</u></h3>
+                <table id="table{{$qwe->id}}">
+
+                    <div class="bnames" >
+                        <em id="bsurname{{$qwe->id}}">{{$qwe-> surname}}&nbsp; </em>
+                        <em id="bfirstname{{$qwe->id}}" > {{$qwe->firstname}} </em>
+                    </div>
+
                     @foreach ($qwe->notes as $note)
                         <tr id="noteHolder{{$note->id}}">
                             <td class="skillPoints">
@@ -50,6 +62,7 @@
                                     <img width="19" src="{{URL::asset('img/set.png')}}">
                                 @endfor
                                 <br><br>
+
                             </td>
                             <td>
                             @auth<em class="cardOpBack" id="deleteNote{{$note->id}}" data-token="{{ csrf_token() }}">DELETE</em>@endauth
@@ -60,6 +73,9 @@
                 <input type="button" value="new" class="newNoteBtn" id="newNoteBtn{{$qwe->id}}" onclick="event.stopPropagation()">
 
                 <div class="newNoteForm" id="newNoteForm{{$qwe->id}}" >
+
+
+
                     <form name="newNote{{$qwe->id}}" id="newNote{{$qwe->id}}" method="POST" action="/asdf" onclick="event.stopPropagation()">
                         {{ csrf_field() }}
                         <input type="hidden" value="{{$qwe->id}}" name="worker_id">
@@ -72,13 +88,15 @@
                             @endforeach
 
                         </select>
-                        <input type="range" min="0" max="10" step="1" name="level" id="newNoteRange{{$qwe->id}}"onchange="printRangeValue(this.id,this.value)">
+                        <input type="range" min="1" max="10" step="1" name="level" id="newNoteRange{{$qwe->id}}"onchange="printRangeValue(this.id,this.value)">
                         <div id="rangeValue{{$qwe->id}}"style="float:right;font-weight:bold;">5</div>
                         <br>
                         <input type="button" class="newSkillBtn" id="newSkillBtn{{$qwe->id}}" value="newSkill" name="submitBtn">
 
                         <input type="hidden" name="type" value="1">
                     </form>
+
+
                 </div>
             </div>
         </div>
@@ -93,6 +111,7 @@
             <form id="newCard" method="POST" action="/asdf" onclick="event.stopPropagation()">
                 {{ csrf_field() }}
                 <table id="input">
+
                     <tr>
                         <td>surname:</td>
                         <td><input type="text" name="surname"></td>
@@ -103,8 +122,8 @@
                     </tr>
                     <tr>
                         <td></td>
-                        {{--<td><input type="submit" name="submitBtn" id="newCardb" data-token="{{ csrf_token() }} value="newCard"></td>--}}
                     </tr>
+
                 </table>
 
                 <input type="hidden" name="type" value="2">
@@ -162,7 +181,9 @@
             <label for="level">max level:</label>
             <input type="number" name="maxLevel" id="maxLevel" value="{{$revalue[2]}}" min="1" max="10" >
             <br>
+            alphabetical <input type="checkbox" name="alphabetical"><br>
             <input type="submit" name="submitBtn" value="filter">
+
             <input type="hidden" name="type" value="3">
         </form>
 

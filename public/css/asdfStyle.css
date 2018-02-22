@@ -40,6 +40,24 @@ body{
     border:solid rgb(140,30,10);
     background-color:rgba(140,30,10,.6);
 }
+.names{
+    display: block;
+    font-size: 1.5em;
+    width:80%;
+    margin: 0.83em auto;
+    font-weight: bold;
+    text-decoration:underline;
+
+}
+
+.bnames{
+    display: block;
+    font-size: 1.17em;
+    width:80%;
+    margin: 0.83em auto;
+    font-weight: bold;
+    text-decoration:underline;
+}
 .back{
     padding-left:10px;
     text-align:left;
@@ -60,6 +78,10 @@ body{
     height:64px;
     background-color:white;
     display:none;
+}
+.rangeValue{
+    float:right;
+    font-weight:bold;
 }
 #backButton{
     display:block;
