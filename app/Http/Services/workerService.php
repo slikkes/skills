@@ -27,6 +27,8 @@ class workerService
         }
     }
 
+
+
     public function newNote(){
 
            $note= new Note();
@@ -39,6 +41,8 @@ class workerService
            return $point->point;
     }
 
+
+
     public function changeNote()
     {
 
@@ -48,6 +52,8 @@ class workerService
 
         return back();
     }
+
+
 
     public function newWorker($request)
     {
@@ -64,6 +70,7 @@ class workerService
 
         return response()->json($worker);
     }
+
 
 
     public function modifyWorkerName(){
@@ -83,6 +90,7 @@ class workerService
         }
        $worker->save();
     }
+
 
 
     public function filter(){

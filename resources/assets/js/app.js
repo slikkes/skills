@@ -6,8 +6,12 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
+//import Vue from 'vue';
+let Vue=require('vue');
+
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -17,6 +21,10 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+Vue.component('card', require('./components/card.vue'));
+
 const app = new Vue({
-    el: '#app'
+    el: '#cardHolder'
 });
+
+//Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;

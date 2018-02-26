@@ -16,7 +16,7 @@ class WorkerObserver
     public function created(Worker $worker){
 
         $test=new Test();
-        $test->title="created".$worker->id;
+        $test->title="worker created ".$worker->id;
         $test->save();
 
         $point=new Point();
@@ -25,5 +25,10 @@ class WorkerObserver
         $point->save();
 
 
+    }
+    public function deleted(Worker $worker){
+        $test=new Test();
+        $test->title="worker deleted ".$worker->id;
+        $test->save();
     }
 }

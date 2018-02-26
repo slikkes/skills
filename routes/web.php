@@ -42,6 +42,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+
+Route::post('promiseTest', 'TestController@promiseTest');
+
+
+
 Route::get('test', 'TestController@index');
 Route::get('update_points','TestController@updatePoints');
 Route::post('deleting','TestController@delete');

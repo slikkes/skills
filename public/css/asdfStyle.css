@@ -20,9 +20,7 @@ body{
     float:left
 
 }
-#sideMenu  td {
-    border: 1px solid black;
-}
+
 .filterPlus, .filterMinus{
     cursor:pointer;
 }

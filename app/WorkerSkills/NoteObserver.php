@@ -24,7 +24,7 @@ class NoteObserver{
     public function created(Note $note){
 
         $test=new Test();
-        $test->title="created".$note->worker_id;
+        $test->title="note created".$note->worker_id;
         $test->save();
 
 
@@ -33,14 +33,14 @@ class NoteObserver{
     public function updated(Note $note){
 
         $test=new Test();
-        $test->title="updated".$note->worker_id;
+        $test->title="note updated".$note->worker_id;
         $test->save();
     }
 
     public function deleted(Note $note){
 
         $test=new Test();
-        $test->title="deleted".$note->worker_id;
+        $test->title="note deleted".$note->worker_id;
         $test->save();
 
         $this->updatePoints($note->worker_id);

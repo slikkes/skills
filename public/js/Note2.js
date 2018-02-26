@@ -41,16 +41,18 @@ function createNewNote(values){
             type: 1
         },
         success:function(msg) {
-            let skillpoints = "<br>";
-            for (let i = 0; i < values[3]; i++) {
-                skillpoints += '<img style="margin:2px;" width="19" src="img/set.png">';
-            }
-            $("#table" + values[1]).append("<tr><td>" + skills[values[2]].skillname + skillpoints + "</td><td></td></tr>");
-            $("#point" + values[1]).html(msg);
-
-
             $("#newNoteBtn" + values[1]).val('new');
-            $("#newNoteForm" + values[1]).slideToggle("fast")
+            $("#newNoteForm" + values[1]).slideToggle("fast",function(){
+                let skillpoints = "<br>";
+                for (let i = 0; i < values[3]; i++) {
+                    skillpoints += '<img style="margin:2px;" width="19" src="img/set.png">';
+                }
+                $("#table" + values[1]).append("<tr><td>" + skills[values[2]].skillname + skillpoints + "</td><td></td></tr>");
+
+                $("#point" + values[1]).html(msg);
+            })
+
+
         }
     })
 

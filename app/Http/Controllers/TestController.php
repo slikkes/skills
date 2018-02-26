@@ -15,7 +15,11 @@ class TestController extends Controller
 {
     public function index(){
 
-    return view("testing");
+        $qwer=Worker::select('workers.*','points.point')
+            ->join('points','workers.id','=','points.worker_id')
+            ->orderBy('points.point','desc')->get();
+
+    return view("testing")->with('qwer',$qwer);
 
     }
 
@@ -58,5 +62,9 @@ class TestController extends Controller
     return "done";
     }
 
+
+    public function promiseTest(){
+        return request('data');
+    }
 
 }

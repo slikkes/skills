@@ -16,12 +16,7 @@ class NoteServiceProvider extends ServiceProvider
     public function boot()
     {
         Note::observe(NoteObserver::class);
-       /* Note::creating(function(){
-            $test=new Test();
-            $test->title="asdfasdf";
-            $test->save();
 
-        });*/
     }
 
     /**

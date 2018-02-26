@@ -22,6 +22,7 @@ $(function() {
 
 
 
+
 function deleteWorker(id){
 
     let token =$('meta[name="csrf-token"]').attr('content');
@@ -150,7 +151,6 @@ function apply(id){
             newValue: newValue
         },
         success:function(msg){
-            console.log(msg)
             resetmod(id,surname,firstname);
         }
     })
@@ -167,6 +167,9 @@ $(function(){
         event.stopPropagation();
         let token = $(this).data('token');
         let id= getIdOfBtn(this.id,10);
+
+        notes.forEach(function(e, index){
+            if(e.id==id){notes.splice(index,1)}})
 
         $.ajax({
             type: "post",

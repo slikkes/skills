@@ -13,10 +13,22 @@
    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
    <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 
+
+
+   <script src="{{URL::asset('js/vue.min.js')}}"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
+
 @stop
 @section('content')
     <div id="cardHolder">
 
+
+        <div id="app">
+            <card></card>
+        </div>
+
+
+        <script src="{{URL::asset('js/app.js')}}"></script>
         <script>let notes=[];</script>
 
         @foreach ($qwer as $qwe)
@@ -181,7 +193,6 @@
             <label for="level">max level:</label>
             <input type="number" name="maxLevel" id="maxLevel" value="{{$revalue[2]}}" min="1" max="10" >
             <br>
-            alphabetical <input type="checkbox" name="alphabetical"><br>
             <input type="submit" name="submitBtn" value="filter">
 
             <input type="hidden" name="type" value="3">
