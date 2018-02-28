@@ -22,9 +22,13 @@ let Vue=require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 Vue.component('card', require('./components/card.vue'));
+Vue.component('note', require('./components/note.vue'));
 
 const app = new Vue({
     el: '#cardHolder'
 });
+
+global.app=app;
+
 
 //Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;

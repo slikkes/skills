@@ -14,19 +14,18 @@
 
         <div class="back">
 
-
             <div class="bnames" >
                 <em v-bind:id="'bsurname'+id">{{surname}}&nbsp; </em>
                 <em v-bind:id="'bfirstname'+id" > {{firstname}} </em>
             </div>
 
             <table v-bind:id="'table'+id">
-
+                    {{n}}<br>
+                <note v-for="i in n" id="0" skillname="test" level="3"></note>
             </table>
 
-
-
         </div>
+
     </div>
 </template>
 
@@ -38,7 +37,7 @@
         mounted() {
             console.log('Card mounted.')
         },
-        props:['id', 'surname', 'firstname', 'point', 'created_at', 'updated_at'],
+        props:['id', 'surname', 'firstname', 'point', 'created_at', 'updated_at','n'],
 
        /* data:function(){
             return{

@@ -9,17 +9,20 @@ use App\Worker;
 use App\Point;
 use App\WorkerSkills\NoteObserver;
 
+use App\Http\Services\workerService;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
     public function index(){
-
+        $skills=(new workerService)->setSkills();
         $qwer=Worker::select('workers.*','points.point')
             ->join('points','workers.id','=','points.worker_id')
             ->orderBy('points.point','desc')->get();
 
-    return view("testing")->with('qwer',$qwer);
+    return view("testing")->with([
+        'qwer'=>$qwer,
+        'skills'=>$skills,]);
 
     }
 

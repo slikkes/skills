@@ -7,104 +7,84 @@
 {{--<script src="resources/assets/js/app.js"></script>
 <script src="/assets/js/components/ExampleComponent.vue"></script>--}}
 <script src="{{URL::asset('js/vue.min.js')}}"></script>
+<script src="{{URL::asset('js/Note2.js')}}"></script>
+<script src="{{URL::asset('js/Skill.js')}}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
 
 <script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
 
-<script>
-    // rename myToken as you like
-    window.myToken =  <?php echo json_encode([
-        'csrfToken' => csrf_token(),
-    ]); ?>
-</script>
+
 
 @stop
 @section('content')
-
-
-<button onclick="newc()" >new</button>
-
-    {{--<div id="cardHolder">
-        @foreach ($qwer as $qwe)
-            <test-component surname="{{$qwe->surname}}" firstname="{{$qwe->firstname}}" ></test-component>
-        @endforeach
-    </div>--}}
-
-// $("#cardHolder").append('<card   id="{{$qwe->id}}"surname="{{$qwe->surname}}"firstname="{{$qwe->firstname}}"point="{{$qwe->points->point}}"created_at="{{$qwe->created_at}}"updated_at="{{$qwe->updated_at}}"></card>')
-
-
 <div id="cardHolder">
+    <note id="1" skillname="asd" :level="7" ></note></div>
 
-</div>
-<script>
-    @foreach ($qwer as $qwe)
+    <script>
 
-     card=$('<card />',{
-            id:"{{$qwe->id}}",
-            surname:"{{$qwe->surname}}",
-            firstname:"{{$qwe->firstname}}",
-            point:"{{$qwe->points->point}}",
-            created_at:"{{$qwe->created_at}}",
-            updated_at:"{{$qwe->updated_at}}"
-        });
-    $("#cardHolder").append(card);
+        let notes=[];
+        let skills=[];
 
-         @foreach ($qwe->notes as $note)
+        @foreach ($skills as $skill)
+            skills.push(new Skill({{$skill->id}},"{{$skill->skillname}}"));
+        @endforeach
+
+        @foreach ($qwer as $qwe)
+
+             card=$('<card />',{
+                    id:"{{$qwe->id}}",
+                    surname:"{{$qwe->surname}}",
+                    firstname:"{{$qwe->firstname}}",
+                    point:"{{$qwe->points->point}}",
+                    created_at:"{{$qwe->created_at}}",
+                    updated_at:"{{$qwe->updated_at}}",
+                    n:{{count($qwe->notes)}}
+                });
+
+            $("#cardHolder").append(card);
+
+            @foreach ($qwe->notes as $note)
+                notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
+            @endforeach
+
+        @endforeach
+
+            $(".back").ready(function(){
+
+            notes.forEach(function(e){
+
+                note=$('<note />',{
+                    id: e.id,
+                    skillname:skills[e.skill_id-1].skillname,
+                    level:e.level
+                });
 
 
-
-         @endforeach
-
-    @endforeach
-</script>
-<script>
-
-        $(function(){
-            $(".cards").flip();
-        });
-
-        function newc(){
-            $('#cardHolder').append('<test-component surname="a" firstname="b"></test-component>')
-        }
-
-
-
-        let texts=["custom component","custom component2","custom component3","custom component"]
-
-        Vue.component('test-component',
-            {
-                props:['surname', 'firstname'],
-                template:
-                    '<div class="cards">' +
-                        '<div class="front">' +
-                            '<div class="names">' +
-                                 '<em>@{{ surname }} </em>' +
-                                 '<em>@{{ firstname }}</em>' +
-                            '</div>' +
-                        '<div class="back"></div>' +
-                    '</div>'
-
+                $("#table"+e.worker_id).append(note);
+                });
             });
 
-
-        new Vue({
-            el: '#cardHodlder',
-
+        $(function(){
+            $(".cards").flip()
         });
-
-
 
 
 
     </script>
 
-    <style>
-        .cardp{
-            width:200px;
-            height:300px;
-            float:left;
-        }
-    </style>
+<button onclick="(function(){$('#table3').append('asd');})()">aa</button>
+
+
+
+
+
+
+
+
+
+
+
 
     <script src="{{URL::asset('js/app.js')}}"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

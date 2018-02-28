@@ -23,12 +23,7 @@
     <div id="cardHolder">
 
 
-        <div id="app">
-            <card></card>
-        </div>
 
-
-        <script src="{{URL::asset('js/app.js')}}"></script>
         <script>let notes=[];</script>
 
         @foreach ($qwer as $qwe)
