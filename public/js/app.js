@@ -43233,7 +43233,7 @@ exports = module.exports = __webpack_require__(45)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* CSS here\n * by including `scoped`, we ensure that all CSS\n * is scoped to this component!\n */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* CSS here\n * by including `scoped`, we ensure that all CSS\n * is scoped to this component!\n */\n", ""]);
 
 // exports
 
@@ -43620,6 +43620,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43627,19 +43649,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Card mounted.');
     },
 
-    props: ['id', 'surname', 'firstname', 'point', 'created_at', 'updated_at', 'n']
+    props: {
+        nts: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        },
+        skills: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        },
+        id: {
+            type: Number
+        },
+        surname: {
+            type: String
+        },
+        firstname: {
+            type: String
+        },
+        point: {
+            type: Number
+        },
+        created_at: {
+            type: String
+        },
+        updated_at: {
+            type: String
+        }
+    }
 
-    /* data:function(){
-         return{
-             id: id,
-             surname: surname,
-             firstname: firstname,
-             point: point,
-             pointid: "point"+id,
-             created_at: created_at,
-             updated_at: updated_at,
-           }
-     }*/
 });
 
 /***/ }),
@@ -43687,17 +43729,99 @@ var render = function() {
       _c(
         "table",
         { attrs: { id: "table" + _vm.id } },
-        [
-          _vm._v("\n                " + _vm._s(_vm.n)),
-          _c("br"),
-          _vm._v(" "),
-          _vm._l(_vm.n, function(i) {
-            return _c("note", {
-              attrs: { id: "0", skillname: "test", level: "3" }
-            })
+        _vm._l(_vm.nts, function(value, key) {
+          return _c("note", {
+            attrs: { id: "0", skillname: key, level: value }
           })
-        ],
-        2
+        })
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "newNoteBtn",
+        attrs: {
+          type: "button",
+          value: "new",
+          id: "newNoteBtn" + _vm.id,
+          onclick: "event.stopPropagation()"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "newNoteForm", attrs: { id: "newNoteForm" + _vm.id } },
+        [
+          _c(
+            "form",
+            {
+              attrs: {
+                id: "newNote" + _vm.id,
+                method: "POST",
+                action: "/asdf",
+                onclick: "event.stopPropagation()"
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "hidden", name: "worker_id" },
+                domProps: { value: _vm.id }
+              }),
+              _vm._v(" "),
+              _c(
+                "select",
+                { attrs: { name: "skill_id" } },
+                [
+                  _c("option", { attrs: { value: "0" } }, [
+                    _vm._v("choose one")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.skills, function(key, value) {
+                    return _c("option", { domProps: { value: key } }, [
+                      _vm._v(_vm._s(value))
+                    ])
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("input", {
+                attrs: {
+                  type: "range",
+                  min: "1",
+                  max: "10",
+                  step: "1",
+                  name: "level",
+                  id: "newNoteRange" + _vm.id,
+                  onchange: "printRangeValue(this.id,this.value)"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticStyle: { float: "right", "font-weight": "bold" },
+                  attrs: { id: "rangeValue" + _vm.id }
+                },
+                [_vm._v("5")]
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "newSkillBtn",
+                attrs: {
+                  type: "button",
+                  id: "newSkillBtn" + _vm.id,
+                  value: "newSkill",
+                  name: "submitBtn"
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "type", value: "1" }
+              })
+            ]
+          )
+        ]
       )
     ])
   ])

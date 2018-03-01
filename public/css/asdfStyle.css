@@ -31,6 +31,7 @@ body{
     text-align:center;
     margin:15px;
     cursor:pointer;
+
 }
 .front{
     padding-left:5px;
@@ -62,6 +63,8 @@ body{
     border-radius:16px;
     border:solid rgb(140,30,10);
     background-color:rgba(140,30,10,.7);
+    overflow-y: hidden;
+    overflow-x:hidden;
 }
 .skillPoints{
     width:270px;

@@ -1,5 +1,5 @@
 <template>
-    <div class="cards" v-bind:id="'card'+id">
+    <div class="cards" :id="'card'+id">
 
         <div class="front">
             <div class="names">
@@ -15,15 +15,34 @@
         <div class="back">
 
             <div class="bnames" >
-                <em v-bind:id="'bsurname'+id">{{surname}}&nbsp; </em>
-                <em v-bind:id="'bfirstname'+id" > {{firstname}} </em>
+                <em :id="'bsurname'+id">{{surname}}&nbsp; </em>
+                <em :id="'bfirstname'+id" > {{firstname}} </em>
             </div>
 
             <table v-bind:id="'table'+id">
-                    {{n}}<br>
-                <note v-for="i in n" id="0" skillname="test" level="3"></note>
+                <note v-for="(value, key) in nts"  id="0" :skillname="key" :level="value"></note>
             </table>
 
+            <input type="button" value="new" class="newNoteBtn" :id="'newNoteBtn'+id" onclick="event.stopPropagation()">
+
+            <div class="newNoteForm" :id="'newNoteForm'+id" >
+
+                <form v-bind:id="'newNote'+id" method="POST" action="/asdf" onclick="event.stopPropagation()">
+
+                    <input type="hidden" :value="id" name="worker_id">
+                    <select name="skill_id">
+                        <option value="0">choose one</option>
+                        <option v-for="(key, value) in skills" :value="key">{{value}}</option>
+                    </select>
+                    <input type="range" min="1" max="10" step="1" name="level" :id="'newNoteRange'+id" onchange="printRangeValue(this.id,this.value)">
+                    <div :id="'rangeValue'+id" style="float:right;font-weight:bold;">5</div>
+                    <br>
+                    <input type="button" class="newSkillBtn" :id="'newSkillBtn'+id" value="newSkill" name="submitBtn">
+                    <input type="hidden" name="type" value="1">
+
+                </form>
+
+            </div>
         </div>
 
     </div>
@@ -37,21 +56,35 @@
         mounted() {
             console.log('Card mounted.')
         },
-        props:['id', 'surname', 'firstname', 'point', 'created_at', 'updated_at','n'],
+        props: {
+            nts: {
+                type: Object,
+                default: () => ({})
+            },
+            skills:{
+                type:Object,
+                default: () => ({})
+            },
+            id:{
+                type:Number
+            },
+            surname:{
+                type:String
+            },
+            firstname:{
+                type:String
+            },
+            point:{
+                type:Number
+            },
+            created_at: {
+                type:String
+            },
+            updated_at: {
+                type:String
+            },
+        }
 
-       /* data:function(){
-            return{
-                id: id,
-                surname: surname,
-                firstname: firstname,
-                point: point,
-                pointid: "point"+id,
-                created_at: created_at,
-                updated_at: updated_at,
-
-
-            }
-        }*/
     }
 
 </script>

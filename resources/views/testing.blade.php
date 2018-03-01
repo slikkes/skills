@@ -2,45 +2,60 @@
 @section('title','TEST')
 @section('import')
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/asdfStyle.css') }}">
-    <script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
-    <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
-{{--<script src="resources/assets/js/app.js"></script>
-<script src="/assets/js/components/ExampleComponent.vue"></script>--}}
-<script src="{{URL::asset('js/vue.min.js')}}"></script>
-<script src="{{URL::asset('js/Note2.js')}}"></script>
-<script src="{{URL::asset('js/Skill.js')}}"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
-
 <script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
-
-
-
+<script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+<script src="{{URL::asset('js/vue.min.js')}}"></script>
+<script src="{{URL::asset('js/Note.js')}}"></script>
+<script src="{{URL::asset('js/Skill.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
+<script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
 @stop
+
 @section('content')
-<div id="cardHolder">
-    <note id="1" skillname="asd" :level="7" ></note></div>
+
+<div id="cardHolder"></div>
 
     <script>
 
         let notes=[];
         let skills=[];
-
+        let skillsToSelect="{";
         @foreach ($skills as $skill)
-            skills.push(new Skill({{$skill->id}},"{{$skill->skillname}}"));
+        skills.push(new Skill({{$skill->id}},"{{$skill->skillname}}"));
+        skillsToSelect+="{{$skill->skillname}}:{{$skill->id}},";
         @endforeach
-
+        console.log();
+        skillsToSelect=skillsToSelect.slice(0,-1)+'}';
         @foreach ($qwer as $qwe)
+           nts="{asd:2,erwe:4}";
+           console.log({{count($qwe->notes)}});
+             card=$('<card ' +
+                    ':id="{{$qwe->id}}" '+
+                    'surname="{{$qwe->surname}}"'+
+                    'firstname="{{$qwe->firstname}}"'+
+                    ':point="{{$qwe->points->point}}"'+
+                    'created_at="{{$qwe->created_at}}"'+
+                    'updated_at="{{$qwe->updated_at}}"'+
+                    ':skills="'+skillsToSelect+'"'+
+                    ':nts="{'+
+                     @php
+                         $c=count($qwe->notes);
+                     @endphp
+                     @foreach($qwe->notes as $note)
 
-             card=$('<card />',{
-                    id:"{{$qwe->id}}",
-                    surname:"{{$qwe->surname}}",
-                    firstname:"{{$qwe->firstname}}",
-                    point:"{{$qwe->points->point}}",
-                    created_at:"{{$qwe->created_at}}",
-                    updated_at:"{{$qwe->updated_at}}",
-                    n:{{count($qwe->notes)}}
-                });
+                         skills[{{$note->skill_id}}-1].skillname+': '+ {{$note->level}}
+
+                         @if ($c>1)
+                             +','+
+                             @php $c--; @endphp
+                         @else
+                             +
+                         @endif
+
+
+                     @endforeach
+                 '}"/>'
+                );
 
             $("#cardHolder").append(card);
 
@@ -69,24 +84,10 @@
             $(".cards").flip()
         });
 
-
-
     </script>
 
-<button onclick="(function(){$('#table3').append('asd');})()">aa</button>
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="{{URL::asset('js/app.js')}}"></script>
+<script src="{{URL::asset('js/asdf.js')}}"></script>
+<script src="{{URL::asset('js/app.js')}}"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 @stop
