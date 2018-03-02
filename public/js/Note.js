@@ -30,18 +30,29 @@ function toggleNewNoteForm(id){
 
 
 function createNewNote(values){
+    let token=$('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "post",
         url: "asdf",
         data: {
-            _token: values[0],
-            worker_id: values[1],
-            skill_id: values[2],
-            level: values[3],
+            _token: token,
+            worker_id: values[0],
+            skill_id: values[1],
+            level: values[2],
             type: 1
         },
         success:function(msg) {
-            $("#newNoteBtn" + values[1]).val('new');
+
+            console.log(msg);
+
+
+
+
+
+
+
+        }
+           /* $("#newNoteBtn" + values[1]).val('new');
             $("#newNoteForm" + values[1]).slideToggle("fast",function(){
                 let skillpoints = "<br>";
                 for (let i = 0; i < values[3]; i++) {
@@ -53,7 +64,7 @@ function createNewNote(values){
             })
 
 
-        }
+        }*/
     })
 
 }
@@ -61,7 +72,7 @@ function createNewNote(values){
 
 //new note errors
 $(function(){
-    $(document).ready(newNoteErrors(".newSkillBtn"))
+  //  $(document).ready(newNoteErrors(".newSkillBtn"))
 });
 
 function newNoteErrors(id) {
@@ -70,10 +81,9 @@ function newNoteErrors(id) {
         let values = [];
         for (let i = 0; i < 4; i++) {
 
-            //0 token
-            //1 worker_id
-            //2 skill_id
-            //3 level
+            //0 worker_id
+            //1 skill_id
+            //2 level
 
             values[i] = document.getElementById(id).elements[i].value;
 
@@ -81,18 +91,19 @@ function newNoteErrors(id) {
         let msg = "";
         let error = false;
 
-        if (values[2] == 0) {
+
+        if (values[1] == 0) {
             error = true;
             $("#skillErrorNew").css("display", "none");
-            msg = '<h3 id="skillErrorMsg">válassz képességet!!</h3>';
 
+            msg = '<h3 id="skillErrorMsg">válassz képességet!!</h3>';
         }
         else {
-            for (let i = 0; i < notes.length; i++) {
 
-                if (notes[i].worker_id == values[1] && notes[i].skill_id == values[2]) {
+            for (let i = 0; i < notes.length; i++) {
+                if (notes[i].worker_id == values[0] && notes[i].skill_id == values[1]) {
                     $("#skillErrorNew").css("display", "block");
-                    for (let j = 1; j < 4; j++) {
+                    for (let j = 1; j < 3; j++) {
                         document.getElementById("changeSkillForm").elements[j].value = values[j];
                     }
                     document.getElementById("changeSkillForm").elements[4].value = notes[i].id;
@@ -102,6 +113,7 @@ function newNoteErrors(id) {
             }
 
             if (!error) {
+                console.log(values[0]+" "+values[1]);
                 //document.getElementById(id).submit();
                 createNewNote(values);
             }

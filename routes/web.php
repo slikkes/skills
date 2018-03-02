@@ -32,9 +32,7 @@ Route::post('deleteNote','workersController@deleteNote');
 
 Route::post('modifyWorkerName','workersController@form');
 
-/*Route::post('deleteNote',function(){
-    return "asd";
-});*/
+
 
 
 Auth::routes();
@@ -51,9 +49,8 @@ Route::get('test', 'TestController@index');
 Route::get('update_points','TestController@updatePoints');
 Route::post('deleting','TestController@delete');
 
-/*Route::get('testing',function(){
 
-    return Cache::put('cachekey','im in the cache',1);
-    return Cache::get('cachekey');
 
-});*/
+Route::get('todo', function(){
+    return view('todo');
+});

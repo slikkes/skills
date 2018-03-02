@@ -43,7 +43,8 @@ class workersController extends Controller
         $submit=$request->type;
         switch ($submit){
             case 1:
-                return (new workerService)->newNote();
+               // return (new workerService)->newNote();
+                return $request->all();
             case 2:
                 return (new workerService)->newWorker($request);
             case 3:

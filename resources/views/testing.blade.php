@@ -26,9 +26,9 @@
         @endforeach
         console.log();
         skillsToSelect=skillsToSelect.slice(0,-1)+'}';
+
         @foreach ($qwer as $qwe)
-           nts="{asd:2,erwe:4}";
-           console.log({{count($qwe->notes)}});
+
              card=$('<card ' +
                     ':id="{{$qwe->id}}" '+
                     'surname="{{$qwe->surname}}"'+
@@ -37,29 +37,29 @@
                     'created_at="{{$qwe->created_at}}"'+
                     'updated_at="{{$qwe->updated_at}}"'+
                     ':skills="'+skillsToSelect+'"'+
-                    ':nts="{'+
+                    ':nts="['+
                      @php
                          $c=count($qwe->notes);
                      @endphp
                      @foreach($qwe->notes as $note)
 
-                         skills[{{$note->skill_id}}-1].skillname+': '+ {{$note->level}}
+                         '{skillname:'+skills[{{$note->skill_id}}-1].skillname+'",'+
+                         'level:'+ {{$note->level}}+'}'
 
                          @if ($c>1)
-                             +','+
-                             @php $c--; @endphp
-                         @else
-                             +
-                         @endif
+                +','+
+            @php $c--; @endphp
+                    @else
+                +
+                    @endif
 
+                            @endforeach
+                        ']"/>'
+        );
 
-                     @endforeach
-                 '}"/>'
-                );
+        $("#cardHolder").append(card);
 
-            $("#cardHolder").append(card);
-
-            @foreach ($qwe->notes as $note)
+        @foreach ($qwe->notes as $note)
                 notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
             @endforeach
 
@@ -85,6 +85,25 @@
         });
 
     </script>
+
+<div id="shade">
+    <div class="error" id="skillError">
+        <p id="skillErrorX">&times;</p>
+        <h3 id="skillErrorMsg"></h3>
+        <div id="skillErrorNew">
+            <form method="POST" id="changeSkillForm" action="/asdf">
+                {{ csrf_field() }}
+                <input type="hidden" name="worker_id" >
+                <input type="hidden" name="skill_id" >
+                <input type="hidden" name="level" >
+                <input type="hidden" name="id">
+                <input type="hidden" name="type" value="4">
+                <input type="submit" name="changeSkill" value="updateSkill">
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <script src="{{URL::asset('js/asdf.js')}}"></script>
 <script src="{{URL::asset('js/app.js')}}"></script>
