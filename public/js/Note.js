@@ -72,7 +72,7 @@ function createNewNote(values){
 
 //new note errors
 $(function(){
-  //  $(document).ready(newNoteErrors(".newSkillBtn"))
+  //s  $(document).ready(newNoteErrors(".newSkillBtn"))
 });
 
 function newNoteErrors(id) {

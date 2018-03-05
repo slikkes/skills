@@ -12205,9 +12205,9 @@ module.exports = Vue$3;
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(52)
+var __vue_script__ = __webpack_require__(50)
 /* template */
-var __vue_template__ = __webpack_require__(53)
+var __vue_template__ = __webpack_require__(51)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -12250,7 +12250,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(75);
+module.exports = __webpack_require__(72);
 
 
 /***/ }),
@@ -12280,7 +12280,7 @@ Vue.component('example-component', __webpack_require__(42));
 Vue.component('card', __webpack_require__(45));
 Vue.component('note', __webpack_require__(13));
 
-Vue.component('todo', __webpack_require__(59));
+Vue.component('todo', __webpack_require__(56));
 
 var app = new Vue({
   el: '#cardHolder'
@@ -43520,7 +43520,7 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(49)
 /* template */
-var __vue_template__ = __webpack_require__(58)
+var __vue_template__ = __webpack_require__(55)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43593,7 +43593,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* CSS here\n * by including `scoped`, we ensure that all CSS\n * is scoped to this component!\n */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* CSS here\n * by including `scoped`, we ensure that all CSS\n * is scoped to this component!\n */\n", ""]);
 
 // exports
 
@@ -43637,9 +43637,9 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Notes__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Notes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Notes__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewNote__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__note__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__note___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__note__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewNote__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewNote___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewNote__);
 //
 //
@@ -43675,28 +43675,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Card mounted.');
-    },
-
-
-    components: {
-        Notes: __WEBPACK_IMPORTED_MODULE_0__Notes___default.a,
-        NewNote: __WEBPACK_IMPORTED_MODULE_1__NewNote___default.a
-    },
+    mounted: function mounted() {},
 
     props: ['nts', 'skills', 'id', 'surname', 'firstname', 'point', 'created_at', 'updated_at'],
 
+    /*computed:{
+        cache:false,
+        get:function(){
+            return nts;
+        }
+    },*/
+
+    data: function data() {
+        return {
+            notes: this.nts
+        };
+    },
+
+
+    /*data() {
+        return {
+            nts: [{
+                skillname: 'sss',
+                level: 3
+            }]
+        }
+    },*/
+
+    components: {
+        note: __WEBPACK_IMPORTED_MODULE_0__note___default.a,
+        NewNote: __WEBPACK_IMPORTED_MODULE_1__NewNote___default.a
+    },
+
     methods: {
         createNote: function createNote(msg) {
-            console.log(this.nts);
-            /* this.nts.push({
-                 asdf : msg.level,
-              });*/
+
+            this.nts.push({
+                //skillname: this.skills[msg.skill_id].skillname,
+                skillname: skills[msg.skill_id - 1].skillname,
+                level: msg.level
+            });
+            this.point = msg.point;
         }
     }
 
@@ -43704,106 +43729,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 50 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(51)
-/* template */
-var __vue_template__ = __webpack_require__(54)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/cards/Notes.vue"
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-192223a4", Component.options)
-  } else {
-    hotAPI.reload("data-v-192223a4", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {},
 
-module.exports = Component.exports
-
+    props: ['id', 'note']
+});
 
 /***/ }),
 /* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__note__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__note___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__note__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        note: __WEBPACK_IMPORTED_MODULE_0__note___default.a
-    },
-    props: ['nts', 'id']
-});
-
-/***/ }),
-/* 52 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('note.');
-    },
-
-    props: ['id', 'skillname', 'level']
-});
-
-/***/ }),
-/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -43815,10 +43765,10 @@ var render = function() {
       "td",
       { staticClass: "skillPoints" },
       [
-        _vm._v("\n        " + _vm._s(_vm.skillname)),
+        _vm._v("\n        " + _vm._s(_vm.note.skillname)),
         _c("br"),
         _vm._v(" "),
-        _vm._l(_vm.level, function(i) {
+        _vm._l(_vm.note.level, function(i) {
           return _c("img", { attrs: { src: "img/set.png", width: "19" } })
         }),
         _vm._v(" "),
@@ -43840,45 +43790,15 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "table",
-    { attrs: { id: "table" + _vm.id } },
-    [
-      _vm._v("\n    " + _vm._s(_vm.nts) + "\n    "),
-      _vm._l(_vm.nts, function(value, key) {
-        return _c("note", { attrs: { id: "0", skillname: key, level: value } })
-      })
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-192223a4", module.exports)
-  }
-}
-
-/***/ }),
-/* 55 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(56)
+var __vue_script__ = __webpack_require__(53)
 /* template */
-var __vue_template__ = __webpack_require__(57)
+var __vue_template__ = __webpack_require__(54)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43917,7 +43837,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 56 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43944,29 +43864,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log();
+    },
+
     data: function data() {
         return {
-            skill: 0,
+            skill_id: 0,
             level: 10
         };
     },
+
     props: ['skills', 'id'],
     methods: {
         newNote: function newNote() {
+
+            var token = $('meta[name="csrf-token"]').attr('content');
             var worker_id = this.id;
-            var skill_id = this.skill;
-            var level = this.level;
-            this.$emit('create-note', {
-                worker_id: worker_id,
-                skill_id: skill_id,
-                level: level
+            var skill_id = this.skill_id;
+            var level = parseInt(this.level);
+            var self = this;
+            $.ajax({
+                type: "post",
+                url: "asdf",
+                data: {
+                    _token: token,
+                    worker_id: worker_id,
+                    skill_id: skill_id,
+                    level: level,
+                    type: 1
+                },
+                success: function success(point) {
+                    console.log(point);
+
+                    self.$emit('create-note', {
+                        worker_id: worker_id,
+                        skill_id: skill_id,
+                        level: level,
+                        point: point
+                    });
+                }
             });
         }
     }
 });
 
 /***/ }),
-/* 57 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -43987,11 +43931,10 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.skill,
-              expression: "skill"
+              value: _vm.skill_id,
+              expression: "skill_id"
             }
           ],
-          attrs: { name: "skill_id" },
           on: {
             change: function($event) {
               var $$selectedVal = Array.prototype.filter
@@ -44002,7 +43945,7 @@ var render = function() {
                   var val = "_value" in o ? o._value : o.value
                   return val
                 })
-              _vm.skill = $event.target.multiple
+              _vm.skill_id = $event.target.multiple
                 ? $$selectedVal
                 : $$selectedVal[0]
             }
@@ -44013,9 +43956,9 @@ var render = function() {
             _vm._v("choose one")
           ]),
           _vm._v(" "),
-          _vm._l(_vm.skills, function(key, value) {
-            return _c("option", { domProps: { value: key } }, [
-              _vm._v(_vm._s(value))
+          _vm._l(_vm.skills, function(skill) {
+            return _c("option", { domProps: { value: skill.id } }, [
+              _vm._v(_vm._s(skill.skillname))
             ])
           })
         ],
@@ -44053,7 +43996,7 @@ var render = function() {
           staticStyle: { float: "right", "font-weight": "bold" },
           attrs: { id: "rangeValue" + _vm.id }
         },
-        [_vm._v("5")]
+        [_vm._v("10")]
       ),
       _vm._v(" "),
       _c("br"),
@@ -44081,7 +44024,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -44125,7 +44068,9 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("notes", { attrs: { nts: _vm.nts, id: _vm.id } }),
+        _vm._l(_vm.notes, function(note) {
+          return _c("note", { attrs: { id: _vm.id, note: note } })
+        }),
         _vm._v(" "),
         _c("input", {
           staticClass: "newNoteBtn",
@@ -44142,7 +44087,7 @@ var render = function() {
           on: { "create-note": _vm.createNote }
         })
       ],
-      1
+      2
     )
   ])
 }
@@ -44157,15 +44102,15 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(60)
+var __vue_script__ = __webpack_require__(57)
 /* template */
-var __vue_template__ = __webpack_require__(74)
+var __vue_template__ = __webpack_require__(71)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -44204,14 +44149,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 60 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TodoList__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TodoList__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TodoList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__TodoList__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CreateTodo__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CreateTodo__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CreateTodo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__CreateTodo__);
 //
 //
@@ -44265,19 +44210,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 61 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(62)
+  __webpack_require__(59)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(64)
+var __vue_script__ = __webpack_require__(61)
 /* template */
-var __vue_template__ = __webpack_require__(70)
+var __vue_template__ = __webpack_require__(67)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -44316,13 +44261,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(63);
+var content = __webpack_require__(60);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -44342,7 +44287,7 @@ if(false) {
 }
 
 /***/ }),
-/* 63 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -44356,12 +44301,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 64 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Todo__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Todo__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Todo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Todo__);
 //
 //
@@ -44392,19 +44337,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 65 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(66)
+  __webpack_require__(63)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(68)
+var __vue_script__ = __webpack_require__(65)
 /* template */
-var __vue_template__ = __webpack_require__(69)
+var __vue_template__ = __webpack_require__(66)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -44443,13 +44388,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 66 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(67);
+var content = __webpack_require__(64);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -44469,7 +44414,7 @@ if(false) {
 }
 
 /***/ }),
-/* 67 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -44483,7 +44428,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 68 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44560,7 +44505,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 69 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -44730,7 +44675,7 @@ if (false) {
 }
 
 /***/ }),
-/* 70 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -44786,15 +44731,15 @@ if (false) {
 }
 
 /***/ }),
-/* 71 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(72)
+var __vue_script__ = __webpack_require__(69)
 /* template */
-var __vue_template__ = __webpack_require__(73)
+var __vue_template__ = __webpack_require__(70)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -44833,7 +44778,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 72 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44903,7 +44848,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 73 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -45027,7 +44972,7 @@ if (false) {
 }
 
 /***/ }),
-/* 74 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -45058,7 +45003,7 @@ if (false) {
 }
 
 /***/ }),
-/* 75 */
+/* 72 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

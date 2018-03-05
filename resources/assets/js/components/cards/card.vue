@@ -19,10 +19,12 @@
                 <em :id="'bfirstname'+id" > {{firstname}} </em>
             </div>
 
-            <notes :nts="nts" :id="id"></notes>
+
+            <note v-for="note in notes" :id="id" :note="note"></note>
 
             <input type="button" value="new" class="newNoteBtn" :id="'newNoteBtn'+id" onclick="event.stopPropagation()">
             <new-note :skills="skills" :id="id" v-on:create-note="createNote"></new-note>
+
 
 
         </div>
@@ -33,29 +35,53 @@
 
 
 <script type = "text/javascript">
-    import Notes from './Notes';
+    import note from './note';
     import NewNote from './NewNote';
     export default {
         mounted() {
-            console.log('Card mounted.')
+        },
+        props:['nts','skills','id','surname','firstname','point','created_at','updated_at'],
+
+        /*computed:{
+            cache:false,
+            get:function(){
+                return nts;
+            }
+        },*/
+
+        data(){
+            return{
+                notes: this.nts,
+            }
         },
 
+        /*data() {
+            return {
+                nts: [{
+                    skillname: 'sss',
+                    level: 3
+                }]
+            }
+        },*/
+
         components:{
-            Notes,
+            note,
             NewNote,
         },
 
-        props:['nts','skills','id','surname','firstname','point','created_at','updated_at'],
-
         methods: {
             createNote(msg){
-                console.log(this.nts);
-               /* this.nts.push({
-                    asdf : msg.level,
 
-                });*/
+                this.nts.push({
+                    //skillname: this.skills[msg.skill_id].skillname,
+                    skillname: skills[msg.skill_id-1].skillname,
+                    level: msg.level
+                });
+                this.point=msg.point;
             }
         }
+
+
 
     }
 

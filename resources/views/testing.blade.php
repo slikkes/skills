@@ -19,15 +19,19 @@
 
         let notes=[];
         let skills=[];
-        let skillsToSelect="{";
+        let skillsToSelect=[];
+        let n='[{';
         @foreach ($skills as $skill)
         skills.push(new Skill({{$skill->id}},"{{$skill->skillname}}"));
-        skillsToSelect+="{{$skill->skillname}}:{{$skill->id}},";
+        skillsToSelect.push("{{$skill->skillname}}");
         @endforeach
-        console.log();
-        skillsToSelect=skillsToSelect.slice(0,-1)+'}';
-
+        skillsToSelect=skillsToSelect.slice(0,-1);
         @foreach ($qwer as $qwe)
+
+            @foreach ($qwe->notes as $note)
+                n+='skillname:\''+skills[ {{$note->skill_id}}-1 ].skillname+'\', level:{{$note->level}}},{';
+            @endforeach
+            n=n.slice(0,-2)+']';
 
              card=$('<card ' +
                     ':id="{{$qwe->id}}" '+
@@ -36,49 +40,17 @@
                     ':point="{{$qwe->points->point}}"'+
                     'created_at="{{$qwe->created_at}}"'+
                     'updated_at="{{$qwe->updated_at}}"'+
-                    ':skills="'+skillsToSelect+'"'+
-                    ':nts="['+
-                     @php
-                         $c=count($qwe->notes);
-                     @endphp
-                     @foreach($qwe->notes as $note)
+                    ':skills="{{$skills}}"'+
+                    ':nts="'+n+'"/>'
+             );
+             n='[{';
+             $("#cardHolder").append(card);
 
-                         '{skillname:'+skills[{{$note->skill_id}}-1].skillname+'",'+
-                         'level:'+ {{$note->level}}+'}'
-
-                         @if ($c>1)
-                +','+
-            @php $c--; @endphp
-                    @else
-                +
-                    @endif
-
-                            @endforeach
-                        ']"/>'
-        );
-
-        $("#cardHolder").append(card);
-
-        @foreach ($qwe->notes as $note)
-                notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
+            @foreach ($qwe->notes as $note)
+                    notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));
             @endforeach
 
         @endforeach
-
-            $(".back").ready(function(){
-
-            notes.forEach(function(e){
-
-                note=$('<note />',{
-                    id: e.id,
-                    skillname:skills[e.skill_id-1].skillname,
-                    level:e.level
-                });
-
-
-                $("#table"+e.worker_id).append(note);
-                });
-            });
 
         $(function(){
             $(".cards").flip()
