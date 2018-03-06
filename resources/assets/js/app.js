@@ -21,13 +21,13 @@ let Vue=require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.component('card', require('./components/cards/card.vue'));
-Vue.component('note', require('./components/cards/note.vue'));
+Vue.component('Card', require('./components/cards/Card.vue'));
+Vue.component('CardHolder', require('./components/cards/CardHolder.vue'));
 
 Vue.component('todo', require('./components/todo/App.vue'));
 
 const app = new Vue({
-    el: '#cardHolder'
+    el: '#cardApp'
 });
 
 const todo= new Vue({

@@ -25,9 +25,16 @@ function toggleNewNoteForm(id){
 
 
 
+function validNote(){}
+
+
+
+
 //new note
 
-
+function tester(){
+    alert("good");
+}
 
 function createNewNote(values){
     let token=$('meta[name="csrf-token"]').attr('content');

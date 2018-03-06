@@ -35,32 +35,35 @@
 
             newNote(){
 
-                let token=$('meta[name="csrf-token"]').attr('content');
-                const worker_id= this.id;
-                const skill_id= this.skill_id;
-                const level = parseInt(this.level);
-                let self=this;
-                $.ajax({
-                    type: "post",
-                    url: "asdf",
-                    data: {
-                        _token: token,
-                        worker_id: worker_id,
-                        skill_id: skill_id,
-                        level: level,
-                        type: 1
-                    },
-                    success: function(point){
-                        console.log(point);
+                if(validNote) {
 
-                        self.$emit('create-note', {
-                            worker_id,
-                            skill_id,
-                            level,
-                            point
-                        });
-                    }
-                })
+                    let token = $('meta[name="csrf-token"]').attr('content');
+                    const worker_id = this.id;
+                    const skill_id = this.skill_id;
+                    const level = parseInt(this.level);
+                    let self = this;
+                    $.ajax({
+                        type: "post",
+                        url: "asdf",
+                        data: {
+                            _token: token,
+                            worker_id: worker_id,
+                            skill_id: skill_id,
+                            level: level,
+                            type: 1
+                        },
+                        success: function (point) {
+                            console.log(point);
+
+                            self.$emit('create-note', {
+                                worker_id,
+                                skill_id,
+                                level,
+                                point
+                            });
+                        }
+                    })
+                }
             }
         }
     }

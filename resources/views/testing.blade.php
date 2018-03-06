@@ -13,8 +13,7 @@
 
 @section('content')
 
-<div id="cardHolder"></div>
-
+<div id="cardApp"><card-holder cards="{{$qwer}}"></card-holder></div>
     <script>
 
         let notes=[];

@@ -35,7 +35,7 @@
 
 
 <script type = "text/javascript">
-    import note from './note';
+    import Note from './Note';
     import NewNote from './NewNote';
     export default {
         mounted() {
@@ -65,7 +65,7 @@
         },*/
 
         components:{
-            note,
+            Note,
             NewNote,
         },
 
