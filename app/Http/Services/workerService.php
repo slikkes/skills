@@ -68,12 +68,13 @@ class workerService
         $worker->firstname = request('firstname');
         $worker->save();
 
-        return response()->json($worker);
+
+        return $worker->id;
     }
 
 
 
-    public function modifyWorkerName(){
+    /*public function modifyWorkerName(){
 
         $worker=Worker::find(request('id'));
         $names=request('newValue');
@@ -89,9 +90,14 @@ class workerService
                 $worker->firstname=$names[2];
         }
        $worker->save();
+    }*/
+
+    public function modifyWorkerName(){
+        $worker=Worker::find(request('id'));
+        $worker->surname=request('surname');
+        $worker->firstname=request('firstname');
+        $worker->save();
     }
-
-
 
     public function filter(){
 

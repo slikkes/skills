@@ -2,9 +2,12 @@
 
     <tr v-bind:id="'noteHolder'+id">
         <td class="skillPoints">
-            {{note.skillname}}<br>
-            <img  v-for="i in note.level" src="img/set.png" width="19">
+            {{skillname}}<br>
+            <img  v-for="i in level" src="img/set.png" width="19">
             <br><br>
+        </td>
+        <td v-if="auth" >
+            <em class="cardOpBack" @click="deleteNote">DELETE</em>
         </td>
     </tr>
 
@@ -15,6 +18,26 @@
         mounted() {
 
         },
-        props: ['id', 'note']
+        props: ['id', 'skillname', 'level','auth'],
+        methods:{
+            deleteNote(){
+                event.stopPropagation();
+                let token= $('meta[name="csrf-token"]').attr("content");
+                let id=this.id;
+                let self=this;
+
+                $.ajax({
+                    method: 'post',
+                    url: 'deleteNote',
+                    data: {
+                        _token: token,
+                        id: id,
+                    },
+                    success: function(){
+                        self.$emit('deleteNote', id);
+                    }
+                })
+            }
+        }
     }
 </script>

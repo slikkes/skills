@@ -21,7 +21,6 @@
 <script>
     export default {
         mounted(){
-            console.log();
         },
         data: function(){
             return{
@@ -35,11 +34,13 @@
 
             newNote(){
 
-                if(validNote) {
+                const worker_id = this.id;
+                const skill_id = this.skill_id;
+                let err=validNote(worker_id, skill_id);
+                if(err==-1) {
 
                     let token = $('meta[name="csrf-token"]').attr('content');
-                    const worker_id = this.id;
-                    const skill_id = this.skill_id;
+
                     const level = parseInt(this.level);
                     let self = this;
                     $.ajax({
@@ -53,7 +54,6 @@
                             type: 1
                         },
                         success: function (point) {
-                            console.log(point);
 
                             self.$emit('create-note', {
                                 worker_id,
@@ -63,8 +63,24 @@
                             });
                         }
                     })
+                } else {
+                    this.$emit('error',err);
                 }
             }
         }
     }
+
+    function validNote(worker_id, skill_id){
+
+        let error;
+        skill_id === 0 ? error=0 : error=-1;
+        notes.forEach(function(e){
+            if(e.worker_id==worker_id &&e. skill_id==skill_id){
+                error=1;
+            }
+        });
+
+        return error;
+    }
+
 </script>

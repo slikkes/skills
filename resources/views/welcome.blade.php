@@ -62,7 +62,7 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-            #moka{
+            .btn{
                 display:block;
                 padding:16px 50px;
                 background-color:rgba(140,30,10,.8);
@@ -72,7 +72,7 @@
                 color:white;
                 text-decoration:none;
             }
-            #moka:hover{
+            .btn:hover{
                 background-color:rgba(140,30,10,.3);
                 transition:.5s;
                 color:rgba(140,30,10,.8);
@@ -92,7 +92,8 @@
                     @endauth
                 </div>
             @endif
-                <a href="{{url('/asdf')}}"><div id="moka">asdf</div></a>
+                <a href="{{url('/asdf')}}"><div class="btn">asdf</div></a><br>
+                <a href="{{url('/test')}}"><div class="btn">test</div></a>
             <div class="content">
                 <div class="title m-b-md">
                     Laravel

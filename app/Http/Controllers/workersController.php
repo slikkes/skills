@@ -23,6 +23,7 @@ class workersController extends Controller
             ->join('points','workers.id','=','points.worker_id')
             ->orderBy('points.point','desc')->get();
 
+       // return response()->json($qwer);
         return view('asdf')->with([
             'qwer'=>$qwer,
             'skills'=>$skills,
@@ -63,11 +64,13 @@ class workersController extends Controller
 
     public function deleteWorker(Request $request){
         Worker::find(request('id'))->delete();
+
     }
 
     public function deleteNote(Request $request){
         Note::find(request('id'))->delete();
-
+        //$worker=Worker::find('worker_id');
+        //return $worker->point;
         return $request->all();
     }
 

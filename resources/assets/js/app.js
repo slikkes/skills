@@ -6,7 +6,10 @@
  */
 
 require('./bootstrap');
+require('../../../public/js/flip.js');
+
 window.Vue = require('vue');
+
 //import Vue from 'vue';
 let Vue=require('vue');
 
@@ -30,9 +33,11 @@ const app = new Vue({
     el: '#cardApp'
 });
 
+/*
 const todo= new Vue({
     el: '#app'
     });
+*/
 
 
 
