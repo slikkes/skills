@@ -68,10 +68,10 @@ class workersController extends Controller
     }
 
     public function deleteNote(Request $request){
-        Note::find(request('id'))->delete();
-        //$worker=Worker::find('worker_id');
-        //return $worker->point;
-        return $request->all();
+        //Note::find(request('id'))->delete();
+        $point=Point::find(request('worker_id'));
+        return $point->point;
+        //return $request->all();
     }
 
 

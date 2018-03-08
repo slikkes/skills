@@ -18,8 +18,8 @@ class TestController extends Controller
         $skills=(new workerService)->setSkills();
         $qwer=Worker::select('workers.*','points.point')
             ->join('points','workers.id','=','points.worker_id')
-            ->orderBy('points.point','desc')->get();
-
+            ->get();
+        //->orderBy('points.point','desc')
     return view("testing")->with([
         'qwer'=>$qwer,
         'skills'=>$skills,]);

@@ -1,5 +1,5 @@
 <template>
-    <div class="cards">
+    <div class="cards" id="card0">
         <div class="front">
             +
         </div>
@@ -16,6 +16,9 @@
 <script>
 
     export default{
+        mounted(){
+            startFlip(0);
+        },
         data(){
             return{
                 surname:"",
@@ -31,9 +34,8 @@
                 if(err==-1) {
 
                     let token = $('meta[name="csrf-token"]').attr('content');
-
-                    const level = parseInt(this.level);
                     let self = this;
+
                     $.ajax({
                         type: "post",
                         url: "asdf",
@@ -48,11 +50,11 @@
                             self.$emit('createNewWorker', {
                                 id : id,
                                 surname,
+                                firstname
                             });
-                            $('#card'+id).ready(function(){
-                                console.log(id);
-                                $('#card'+id).flip();
-                            })
+                             $('#card'+id).flip(function(){console.log("na")}).delay(2800);
+
+
                         }
                     })
                 } else {
@@ -62,10 +64,5 @@
         }
     }
 
-    function validWorker(surname, firstname){
-        let err=-1;
-        if(!firstname){err=3;}
-        if(!surname){err=2;}
-        return err;
-    }
+
 </script>

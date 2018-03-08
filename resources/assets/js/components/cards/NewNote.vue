@@ -34,6 +34,7 @@
 
             newNote(){
 
+
                 const worker_id = this.id;
                 const skill_id = this.skill_id;
                 let err=validNote(worker_id, skill_id);
@@ -53,13 +54,15 @@
                             level: level,
                             type: 1
                         },
-                        success: function (point) {
+                        success: function (response) {
+                            console.log(response);
 
                             self.$emit('create-note', {
                                 worker_id,
                                 skill_id,
                                 level,
-                                point
+                                note_id:response[0],
+                                point: response[1]
                             });
                         }
                     })
@@ -70,17 +73,6 @@
         }
     }
 
-    function validNote(worker_id, skill_id){
 
-        let error;
-        skill_id === 0 ? error=0 : error=-1;
-        notes.forEach(function(e){
-            if(e.worker_id==worker_id &&e. skill_id==skill_id){
-                error=1;
-            }
-        });
-
-        return error;
-    }
 
 </script>

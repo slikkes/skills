@@ -6,13 +6,11 @@
  */
 
 require('./bootstrap');
-require('../../../public/js/flip.js');
 
 window.Vue = require('vue');
-
+let _ = require('lodash');
 //import Vue from 'vue';
 let Vue=require('vue');
-
 
 
 

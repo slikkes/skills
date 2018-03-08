@@ -1,6 +1,9 @@
-$(function(){
+/*$(function(){
     $(".cards").flip();
-});
+});*/
+
+
+
 
 $(function(){
     $("#all").click(function(){
@@ -11,9 +14,7 @@ $(function(){
     });
 });
 
-function startFlip(id){
-    $("#card"+id).flip();
-}
+
 
 function getIdOfBtn(string, startPoint){
     let z="";

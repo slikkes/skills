@@ -1,30 +1,49 @@
 <template>
     <div id="cardHolder">
+
+        <div id="filter">
+
+            <select v-model="skill_id" >
+                <option value="0" selected>choose one</option>
+                <option v-for="skill in skills" :value="skill.id">{{skill.skillname}}</option>
+            </select>
+
+            surname:<input v-model="surname" type="text">
+            firstname:<input v-model="firstname" type="text">
+
+            <button @click="filter">filter</button>
+
+        </div>
+
         <errors v-if="err>-1" :message="messages[err].message" v-on:closeError="errorHandler"></errors>
-        <card v-for="card in Cards" :card="card" :skills="skills" :auth="auth" v-on:deleteWorker="deleteWorker" v-on:error="errorHandler"></card>
+        <card v-for="card in cards" :card="card" :skills="skills" :auth="auth" v-on:deleteWorker="deleteWorker" v-on:error="errorHandler"></card>
         <new-card v-on:createNewWorker="createNewWorker" v-on:error="errorHandler"></new-card>
     </div>
 </template>
 
-<script>
+<script type="module">
 
     import Card from './Card.vue';
     import Errors from './Errors.vue';
     import NewCard from './NewCard.vue';
-
+    import _ from 'lodash';
     export default{
-
+        mounted(){
+            console.log(this.cards);
+            console.log(_.orderBy(this.cards,'point'));
+        },
         props: ['cards','skills','auth'],
         data(){
             return {
-                Cards: this.cards,
+
                 err: -1,
                 messages:[
                     {message: "Choose skill!"},
                     {message: "Skill already exists"},
                     {message: "surname field required"},
                     {message: "firstname field required"},
-                ]
+                ],
+                dir: 'desc'
             }
         },
         components:{
@@ -46,6 +65,7 @@
                     created_at:'-',
                     updated_at:'-'
                 });
+
             },
 
             deleteWorker(id){
@@ -56,6 +76,12 @@
 
             }
         },
+        computed:{
+            cardsOrdered(){
+                return _.orderBy(this.cards,'point');
+            }
+        }
+
     }
 </script>
 

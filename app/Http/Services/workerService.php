@@ -38,7 +38,8 @@ class workerService
            $note->save();
 
            $point=Point::find(request('worker_id'));
-           return $point->point;
+           $response=[$note->id, $point->point];
+           return $response;
     }
 
 
