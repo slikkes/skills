@@ -13,7 +13,7 @@
                 <input v-model="newFirstname">
             </div>
 
-            point:<em v-bind:id="'point'+card.id">{{card.point}}</em><br>
+            point:<em v-bind:id="'point'+card.id">{{point}}</em><br>
             created:{{card.created_at}}<br>
             updated:{{card.updated_at}}<br><br>
 
@@ -33,7 +33,7 @@
                 <em> {{card.firstname }} </em>
             </div>
 
-            <note v-for="note in Notes"
+            <note v-for="note in notes"
                   :id="note.id"
                   :skillname="skills[note.skill_id-1].skillname"
                   :level="note.level"
@@ -59,44 +59,53 @@
             toggleNewNoteForm("#newNoteBtn"+this.card.id);
 
         },
-        props: ['card','skills','auth'],
-
-
-
-        data(){
-            return{
-                Notes: this.card.notes,
-                editMode: false,
-                newSurname: this.card.surname,
-                newFirstname: this.card.firstname
-            }
-        },
 
         components:{
             note,
             NewNote,
         },
 
+
+        props: ['card','skills','auth'],
+
+        data(){
+            return{
+                notes: this.card.notes,
+                point: this.card.point,
+                editMode: false,
+                newSurname: this.card.surname,
+                newFirstname: this.card.firstname
+            }
+        },
+
+
+
+        watch:{
+            'card':function(newVal,oldVal){
+                this.notes=newVal.notes;
+                this.point=newVal.point;
+            }
+        },
+
         methods: {
 
             createNote(response){
 
-                this.card.notes.push({
+                this.notes.push({
                     id: response.note_id,
                     skill_id: response.skill_id,
                     level: response.level
                 });
-                this.card.point=response.point;
+                this.point=response.point;
                 notes.push(new Note(response.note_id,this.card.id,response.skill_id,response.level))
             },
 
             deleteNote(response){
 
                 for (let i=this.card.notes.length-1;i>=0;i--){
-                    if(this.card.notes[i].id==response.id){this.card.notes.splice(i,1)}
+                    if(this.notes[i].id==response.id){this.notes.splice(i,1)}
                         }
-                        //notes.splice(id,1);
-                this.card.point=response.point;
+                this.point=response.point;
             },
 
             deleteWorker(){
@@ -160,6 +169,73 @@
 
     }
 
-
-
 </script>
+
+<style >
+    .cards{
+        width:300px;
+        height:300px;
+        float:left;
+        text-align:center;
+        margin:15px;
+        cursor:pointer;
+
+    }
+    .front{
+        padding-left:5px;
+        border-radius:16px;
+        border:solid rgb(140,30,10);
+        background-color:rgba(140,30,10,.6);
+    }
+    .front:hover{
+        background-color:rgba(140,30,10,.4);
+        transition:.4s;
+    }
+    .names{
+        display: block;
+        font-size: 1.5em;
+        width:80%;
+        margin: 0.83em auto;
+        font-weight: bold;
+        text-decoration:underline;
+
+    }
+
+    .bnames{
+        display: block;
+        font-size: 1.17em;
+        width:80%;
+        margin: 0.83em auto;
+        font-weight: bold;
+        text-decoration:underline;
+    }
+    .back{
+        padding-left:10px;
+        text-align:left;
+        border-radius:16px;
+        border:solid rgb(140,30,10);
+        background-color:rgba(140,30,10,.7);
+        overflow-y: hidden;
+        overflow-x:hidden;
+    }
+
+
+    .cardOp{
+        margin:0 auto;
+        width:140px;
+        cursor:pointer;
+        background-color:rgba(0,0,0,.2);
+    }
+    .cardOp:hover{
+        background-color:rgba(0,0,0,.4);
+    }
+    .cardOpBack{
+        margin:0 auto;
+        width:80px;
+        cursor:pointer;
+        background-color:rgba(0,0,0,.2);
+    }
+    .cardOpBack:hover{
+        background-color:rgba(0,0,0,.4);
+    }
+</style>

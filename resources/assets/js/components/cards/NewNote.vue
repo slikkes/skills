@@ -76,3 +76,13 @@
 
 
 </script>
+
+<style scoped>
+    .newNoteForm{
+        margin-top:5px;
+        width:295px;
+        height:64px;
+        background-color:white;
+        display:none;
+    }
+</style>

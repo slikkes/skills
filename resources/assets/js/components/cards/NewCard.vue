@@ -66,3 +66,32 @@
 
 
 </script>
+
+<style scoped>
+    .cards{
+        width:300px;
+        height:300px;
+        float:left;
+        text-align:center;
+        margin:15px;
+        cursor:pointer;
+
+    }
+    .front{
+        padding-left:5px;
+        border-radius:16px;
+        border:solid rgb(140,30,10);
+        background-color:rgba(140,30,10,.6);
+    }
+
+    .back{
+        padding-left:10px;
+        text-align:left;
+        border-radius:16px;
+        border:solid rgb(140,30,10);
+        background-color:rgba(140,30,10,.7);
+        overflow-y: hidden;
+        overflow-x:hidden;
+    }
+
+</style>

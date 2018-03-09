@@ -21,16 +21,13 @@
         props: ['id', 'skillname', 'level','auth','worker_id'],
         methods:{
             deleteNote(){
-
-
-
                 event.stopPropagation();
                 let token= $('meta[name="csrf-token"]').attr("content");
                 let id=this.id;
                 let self=this;
 
 
-console.log(id+" "+this.worker_id);
+
                 $.ajax({
                     method: 'post',
                     url: 'deleteNote',

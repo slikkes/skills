@@ -1,17 +1,28 @@
 @extends('layouts.master')
 @section('title','TEST')
 @section('import')
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/asdfStyle.css') }}">
+{{--<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/asdfStyle.css') }}">--}}
 <script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{URL::asset('js/Note.js')}}"></script>
 <script src="{{URL::asset('js/CardsHelper.js')}}"></script>
 <script src="{{URL::asset('js/vue.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
+    <style>
+        body{
+            background-color:rgba(0,0,0,.2);
+        }
+        #cardApp{
+            width:80%;
+            height:820px;
+            margin:0 auto;
+        }
+
+    </style>
 @stop
 
 @section('content')
 
-    <script>notes=[];</script>
+    <script>let notes=[];let  cardsTest=[];</script>
     @foreach ($qwer as $qwe)
         @foreach ($qwe->notes as $note)
             <script>notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));</script>
