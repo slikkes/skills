@@ -13,6 +13,7 @@
 
 @section('content')
 
+<<<<<<< Updated upstream
 <div id="cardHolder"></div>
 
     <script>
@@ -51,6 +52,17 @@
             @endforeach
 
         @endforeach
+=======
+    <script>
+        let notes=[];
+
+    </script>
+    @foreach ($qwer as $qwe)
+        @foreach ($qwe->notes as $note)
+            <script>notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));</script>
+        @endforeach
+    @endforeach
+>>>>>>> Stashed changes
 
         $(function(){
             $(".cards").flip()
