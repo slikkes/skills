@@ -42,7 +42,7 @@
                   v-on:deleteNote="deleteNote"
             ></note>
 
-            <input type="button" value="new" class="newNoteBtn" :id="'newNoteBtn'+card.id" onclick="event.stopPropagation()">
+            <button class="newNoteBtn" :id="'newNoteBtn'+card.id" @click="toggle">{{toggleButton}}</button>
             <new-note :skills="skills" :id="card.id" v-on:create-note="createNote" v-on:error="errorHandler" ></new-note>
         </div>
     </div>
@@ -56,7 +56,14 @@
     export default {
         mounted(){
             startFlip(this.card.id);
-            toggleNewNoteForm("#newNoteBtn"+this.card.id);
+           // toggleNewNoteForm("#newNoteBtn"+this.card.id);
+           // updateToggleButtons();
+        },
+
+
+
+        updated(){
+            $('.cards').flip();
 
         },
 
@@ -74,7 +81,8 @@
                 point: this.card.point,
                 editMode: false,
                 newSurname: this.card.surname,
-                newFirstname: this.card.firstname
+                newFirstname: this.card.firstname,
+                toggleButton:"new"
             }
         },
 
@@ -164,6 +172,12 @@
 
             errorHandler(err){
                 this.$emit('error', err);
+            },
+
+            toggle(){
+                event.stopPropagation();
+                $('#newNoteForm'+this.card.id).slideToggle('slow');
+                this.toggleButton = this.toggleButton === "new"?"cancel":"new";
             }
         }
 

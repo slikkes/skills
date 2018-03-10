@@ -2,21 +2,20 @@
     <div>
         <div id="filter" >
 
-            <button >filter</button>
-            ascending: <input type="checkbox" v-model="asc">
 
             <div class="filterElements">
-            <select v-model="searchType">
-                <option value="point" selected>point</option>
-                <option value="skill">skill</option>
-                <option value="name">name</option>
-            </select>
+                <select v-model="searchType">
+                    <option value="point" selected>point</option>
+                    <option value="skill">skill</option>
+                    <option value="name">name</option>
+                </select>
+                ascending: <input type="checkbox" v-model="asc">
             </div>
 
             <div class="filterElements" v-if="searchType=='skill'">
             skill:
-                <select  v-model="filterSkill_id" >
-                    <option value="0" selected>choose one</option>
+                <select  v-model="filterSkill" >
+                    <option value="0" selected>all</option>
                     <option v-for="skill in skills" :value="skill.id">{{skill.skillname}}</option>
                 </select>
             </div>
@@ -45,6 +44,7 @@
     import Errors from './Errors.vue';
     import NewCard from './NewCard.vue';
     import _ from 'lodash';
+
     export default{
         mounted(){
             cardsTest=this.cards;
@@ -65,14 +65,13 @@
                     {message: "firstname field required"},
                 ],
                 searchType:'point',
-                sortKey:"point",
                 asc: false,
-                filterSkill_id:0,
+                filterSkill:0,
                 filterName:""
             }
         },
         watch:{
-            Cards:function(){console.log("asdfghjklé")}
+            Cards:function(){console.log("cardwatch")},
         },
         methods:{
             errorHandler(err){
@@ -110,6 +109,7 @@
                 let self= this;
                 let c;
                 switch(this.searchType){
+
                     case "name":
 
                         c= this.Cards.filter(card => {
@@ -118,18 +118,48 @@
                         let d= this.Cards.filter(card => {
                             return card.firstname.toLowerCase().includes(self.filterName.toLowerCase())
                         });
-                        c=_.concat(c,d);
+                        c=_.concat(c,_.difference(d,c));
                         break;
 
                     case "point":
-                        c= _.sortBy(this.Cards,this.sortKey);
+
+                        c= _.sortBy(this.Cards,'point');
                         break;
+
                     case "skill":
-                        console.log("skill");
+
+                        if(self.filterSkill!=0){
+
+                            let n=[];
+                            c=[];
+
+
+                            notes.forEach(function(e){
+                                if(e.skill_id==self.filterSkill){n.push([e.worker_id,e.level])}});
+
+                            n=_.orderBy(n,1);
+
+
+                            n.forEach(function(Ne){
+                                cardsTest.forEach(function(e){
+                                    if(e.id==Ne[0]){c.push(e)}})})
+
+
+                            /*notes.forEach(function(e){
+                                if(e.skill_id==self.filterSkill){n.push(e.worker_id)}});
+
+                            cardsTest.forEach(function(e){
+                                if(_.includes(n,e.id)){c.push(e)}});*/
+
+                        }else{
+
+                            c= _.sortBy(this.Cards,'point');
+                        }
+
                         break;
                 }
 
-                return this.asc ? c.reverse() : c;
+                return this.asc ? c : c.reverse();
             }
         }
     }

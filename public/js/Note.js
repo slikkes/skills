@@ -15,6 +15,8 @@ class Note{
 });*/
 
 function toggleNewNoteForm(id){
+    console.log(id);
+    $(id).unbind('click');
 
     $(id).click(function() {
         let value=$(this).val();
@@ -23,5 +25,13 @@ function toggleNewNoteForm(id){
     });
 }
 
+function updateToggleButtons(){
+    console.log("upd");
+    $('.newNoteBtn').unbind('click');
 
+    $('.newNoteBtn').click(function(){
+        ($(this).val()=="new") ? $(this).val('cancel') : $(this).val('new');
+        $( "#newNoteForm"+getIdOfBtn(this.id,10) ).slideToggle("slow");
+    })
+}
 /**/

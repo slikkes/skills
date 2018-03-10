@@ -14,14 +14,14 @@ $(function(){
     $(document).ready(toggleNewNoteForm(".newNoteBtn"));
 });
 
-function toggleNewNoteForm(id){
+/*function toggleNewNoteForm(id){
 
     $(id).click(function() {
         let value=$(this).val();
         ($(this).val()=="new") ? $(this).val('cancel') : $(this).val('new');
         $( "#newNoteForm"+getIdOfBtn(this.id,10) ).slideToggle("slow");
     });
-};
+};*/
 
 
 

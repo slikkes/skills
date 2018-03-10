@@ -43658,7 +43658,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         startFlip(this.card.id);
-        toggleNewNoteForm("#newNoteBtn" + this.card.id);
+        // toggleNewNoteForm("#newNoteBtn"+this.card.id);
+        // updateToggleButtons();
+    },
+    updated: function updated() {
+        $('.cards').flip();
     },
 
 
@@ -43675,7 +43679,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             point: this.card.point,
             editMode: false,
             newSurname: this.card.surname,
-            newFirstname: this.card.firstname
+            newFirstname: this.card.firstname,
+            toggleButton: "new"
         };
     },
 
@@ -43759,6 +43764,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         errorHandler: function errorHandler(err) {
             this.$emit('error', err);
+        },
+        toggle: function toggle() {
+            event.stopPropagation();
+            $('#newNoteForm' + this.card.id).slideToggle('slow');
+            this.toggleButton = this.toggleButton === "new" ? "cancel" : "new";
         }
     }
 
@@ -44343,15 +44353,15 @@ var render = function() {
             })
           }),
           _vm._v(" "),
-          _c("input", {
-            staticClass: "newNoteBtn",
-            attrs: {
-              type: "button",
-              value: "new",
-              id: "newNoteBtn" + _vm.card.id,
-              onclick: "event.stopPropagation()"
-            }
-          }),
+          _c(
+            "button",
+            {
+              staticClass: "newNoteBtn",
+              attrs: { id: "newNoteBtn" + _vm.card.id },
+              on: { click: _vm.toggle }
+            },
+            [_vm._v(_vm._s(_vm.toggleButton))]
+          ),
           _vm._v(" "),
           _c("new-note", {
             attrs: { skills: _vm.skills, id: _vm.card.id },
@@ -44518,7 +44528,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
+
 
 
 
@@ -44541,16 +44551,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             err: -1,
             messages: [{ message: "Choose skill!" }, { message: "Skill already exists" }, { message: "surname field required" }, { message: "firstname field required" }],
             searchType: 'point',
-            sortKey: "point",
             asc: false,
-            filterSkill_id: 0,
+            filterSkill: 0,
             filterName: ""
         };
     },
 
     watch: {
         Cards: function Cards() {
-            console.log("asdfghjklé");
+            console.log("cardwatch");
         }
     },
     methods: {
@@ -44587,6 +44596,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             var c = void 0;
             switch (this.searchType) {
+
                 case "name":
 
                     c = this.Cards.filter(function (card) {
@@ -44595,18 +44605,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     var d = this.Cards.filter(function (card) {
                         return card.firstname.toLowerCase().includes(self.filterName.toLowerCase());
                     });
-                    c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.concat(c, d);
+                    c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.concat(c, __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.difference(d, c));
                     break;
 
                 case "point":
-                    c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.sortBy(this.Cards, this.sortKey);
+
+                    c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.sortBy(this.Cards, 'point');
                     break;
+
                 case "skill":
-                    console.log("skill");
+
+                    if (self.filterSkill != 0) {
+
+                        var n = [];
+                        c = [];
+
+                        notes.forEach(function (e) {
+                            if (e.skill_id == self.filterSkill) {
+                                n.push([e.worker_id, e.level]);
+                            }
+                        });
+
+                        n = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.orderBy(n, 1);
+
+                        n.forEach(function (Ne) {
+                            cardsTest.forEach(function (e) {
+                                if (e.id == Ne[0]) {
+                                    c.push(e);
+                                }
+                            });
+                        });
+
+                        /*notes.forEach(function(e){
+                            if(e.skill_id==self.filterSkill){n.push(e.worker_id)}});
+                         cardsTest.forEach(function(e){
+                            if(_.includes(n,e.id)){c.push(e)}});*/
+                    } else {
+
+                        c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.sortBy(this.Cards, 'point');
+                    }
+
                     break;
             }
 
-            return this.asc ? c.reverse() : c;
+            return this.asc ? c : c.reverse();
         }
     }
 });
@@ -45010,42 +45052,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { attrs: { id: "filter" } }, [
-      _c("button", [_vm._v("filter")]),
-      _vm._v("\n        ascending: "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.asc,
-            expression: "asc"
-          }
-        ],
-        attrs: { type: "checkbox" },
-        domProps: {
-          checked: Array.isArray(_vm.asc) ? _vm._i(_vm.asc, null) > -1 : _vm.asc
-        },
-        on: {
-          change: function($event) {
-            var $$a = _vm.asc,
-              $$el = $event.target,
-              $$c = $$el.checked ? true : false
-            if (Array.isArray($$a)) {
-              var $$v = null,
-                $$i = _vm._i($$a, $$v)
-              if ($$el.checked) {
-                $$i < 0 && (_vm.asc = $$a.concat([$$v]))
-              } else {
-                $$i > -1 &&
-                  (_vm.asc = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-              }
-            } else {
-              _vm.asc = $$c
-            }
-          }
-        }
-      }),
-      _vm._v(" "),
       _c("div", { staticClass: "filterElements" }, [
         _c(
           "select",
@@ -45083,7 +45089,43 @@ var render = function() {
             _vm._v(" "),
             _c("option", { attrs: { value: "name" } }, [_vm._v("name")])
           ]
-        )
+        ),
+        _vm._v("\n            ascending: "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.asc,
+              expression: "asc"
+            }
+          ],
+          attrs: { type: "checkbox" },
+          domProps: {
+            checked: Array.isArray(_vm.asc)
+              ? _vm._i(_vm.asc, null) > -1
+              : _vm.asc
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.asc,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.asc = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.asc = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.asc = $$c
+              }
+            }
+          }
+        })
       ]),
       _vm._v(" "),
       _vm.searchType == "skill"
@@ -45096,8 +45138,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.filterSkill_id,
-                    expression: "filterSkill_id"
+                    value: _vm.filterSkill,
+                    expression: "filterSkill"
                   }
                 ],
                 on: {
@@ -45110,7 +45152,7 @@ var render = function() {
                         var val = "_value" in o ? o._value : o.value
                         return val
                       })
-                    _vm.filterSkill_id = $event.target.multiple
+                    _vm.filterSkill = $event.target.multiple
                       ? $$selectedVal
                       : $$selectedVal[0]
                   }
@@ -45118,7 +45160,7 @@ var render = function() {
               },
               [
                 _c("option", { attrs: { value: "0", selected: "" } }, [
-                  _vm._v("choose one")
+                  _vm._v("all")
                 ]),
                 _vm._v(" "),
                 _vm._l(_vm.skills, function(skill) {
