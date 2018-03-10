@@ -70,4 +70,13 @@ class TestController extends Controller
         return request('data');
     }
 
+    public function axiosGet(Request $request){
+
+        $notes=Note::all();
+        return $notes;
+        /*$points=Point::find(request('worker_id'));
+        return $points;*/
+        //return $request->all();
+    }
+
 }

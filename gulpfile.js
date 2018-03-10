@@ -1,5 +1,6 @@
 var elixir = require('laravel-elixir');
 require('lodash');
+require('axios');
 
 elixir(function(mix){
     mix.browserify('app.js');

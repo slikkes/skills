@@ -9,6 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 let _ = require('lodash');
+let axios= require('axios');
 //import Vue from 'vue';
 let Vue=require('vue');
 

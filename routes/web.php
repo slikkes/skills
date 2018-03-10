@@ -50,6 +50,9 @@ Route::get('update_points','TestController@updatePoints');
 Route::post('deleting','TestController@delete');
 
 
+Route::get('axiosTest', 'TestController@axiosGet');
+
+
 
 Route::get('todo', function(){
     return view('todo');
