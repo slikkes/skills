@@ -1,5 +1,5 @@
 <template>
-    <div class="cards" :id="'card'+card.id">
+    <div class="cards" :id="'card'+card.id" @click="changeState">
 
         <div class="front">
 
@@ -43,7 +43,7 @@
             ></note>
 
             <button class="newNoteBtn" :id="'newNoteBtn'+card.id" @click="toggle">{{toggleButton}}</button>
-            <new-note :skills="skills" :id="card.id" v-on:create-note="createNote" v-on:error="errorHandler" ></new-note>
+            <new-note :skills="skills" :id="card.id" v-on:create-note="createNote" v-on:error="errorHandler"></new-note>
         </div>
     </div>
 </template>
@@ -82,7 +82,7 @@
                 editMode: false,
                 newSurname: this.card.surname,
                 newFirstname: this.card.firstname,
-                toggleButton:"new"
+                toggleButton:"new",
             }
         },
 
@@ -104,8 +104,8 @@
                     skill_id: response.skill_id,
                     level: response.level
                 });
-                this.point=response.point;
-                notes.push(new Note(response.note_id,this.card.id,response.skill_id,response.level))
+                this.card.point=this.point=response.point;
+                notes.push(new Note(response.note_id,this.card.id,response.skill_id,response.level));
             },
 
             deleteNote(response){
@@ -113,7 +113,7 @@
                 for (let i=this.card.notes.length-1;i>=0;i--){
                     if(this.notes[i].id==response.id){this.notes.splice(i,1)}
                         }
-                this.point=response.point;
+                this.card.point=this.point=response.point;
             },
 
             deleteWorker(){
@@ -121,17 +121,12 @@
                 let id=this.card.id;
                 let token = $('meta[name="csrf-token"]').attr('content');
                 let self=this;
-                console.log(token);
-                $.ajax({
-                    method: 'post',
-                    url: 'deleteWorker',
-                    data:{
-                        _token: token,
-                        id: id,
-                    },
-                    success:function(){
-                        self.$emit('deleteWorker', id)
-                    }
+
+                axios.post('/deleteWorker',{
+                    _token: token,
+                    id: id,
+                }).then(function(){
+                    self.$emit('deleteWorker', id)
                 })
             },
 
@@ -150,24 +145,23 @@
                 let newFirstname=this.newFirstname;
                 let id=this.card.id;
                 let self=this;
-                $.ajax({
-                    type: "post",
-                    url: "modifyWorkerName",
-                    data:{
-                        _token: token,
-                        method: 'post',
-                        url: 'modifyWorkerName',
-                        type: 5,
-                        id: id,
-                        surname: newSurname,
-                        firstname: newFirstname
-                    },
-                    success:function(msg){
-                        self.card.surname=newSurname;
-                        self.card.firstname=newFirstname;
-                        self.editMode=false;
-                    }
+
+                axios.post('/modifyWorkerName',{
+                    _token: token,
+                    method: 'post',
+                    url: 'modifyWorkerName',
+                    type: 5,
+                    id: id,
+                    surname: newSurname,
+                    firstname: newFirstname
+                }).then(function(){
+                    self.card.surname=newSurname;
+                    self.card.firstname=newFirstname;
+                    self.editMode=false;
+                }).catch(function(error){
+                    console.log(error);
                 })
+
             },
 
             errorHandler(err){
@@ -178,6 +172,10 @@
                 event.stopPropagation();
                 $('#newNoteForm'+this.card.id).slideToggle('slow');
                 this.toggleButton = this.toggleButton === "new"?"cancel":"new";
+            },
+
+            changeState(){
+                this.$emit('flipped',this.card.id)
             }
         }
 
@@ -232,7 +230,6 @@
         overflow-y: hidden;
         overflow-x:hidden;
     }
-
 
     .cardOp{
         margin:0 auto;

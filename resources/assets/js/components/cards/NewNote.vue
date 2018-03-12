@@ -44,28 +44,23 @@
 
                     const level = parseInt(this.level);
                     let self = this;
-                    $.ajax({
-                        type: "post",
-                        url: "asdf",
-                        data: {
-                            _token: token,
-                            worker_id: worker_id,
-                            skill_id: skill_id,
-                            level: level,
-                            type: 1
-                        },
-                        success: function (response) {
-                            console.log(response);
 
-                            self.$emit('create-note', {
-                                worker_id,
-                                skill_id,
-                                level,
-                                note_id:response[0],
-                                point: response[1]
-                            });
-                        }
+                    axios.post('/asdf',{
+                        _token: token,
+                        worker_id: worker_id,
+                        skill_id: skill_id,
+                        level: level,
+                        type: 1
+                    }).then(function(response){
+                        self.$emit('create-note', {
+                            worker_id,
+                            skill_id,
+                            level,
+                            note_id:response.data[0],
+                            point: response.data[1]
+                        });
                     })
+
                 } else {
                     this.$emit('error',err);
                 }

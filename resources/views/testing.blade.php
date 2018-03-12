@@ -21,6 +21,7 @@
 @stop
 
 @section('content')
+
 {{--
     <script type="module">
         let notes;

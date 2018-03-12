@@ -36,27 +36,19 @@
                     let token = $('meta[name="csrf-token"]').attr('content');
                     let self = this;
 
-                    $.ajax({
-                        type: "post",
-                        url: "asdf",
-                        data: {
-                            _token: token,
-                            surname:surname,
-                            firstname:firstname,
-                            type: 2
-                        },
-                        success: function (id) {
-
-                            self.$emit('createNewWorker', {
-                                id : id,
-                                surname,
-                                firstname
-                            });
-                             $('#card'+id).flip(function(){console.log("na")}).delay(2800);
-
-
-                        }
+                    axios.post('/asdf',{
+                        _token: token,
+                        surname:surname,
+                        firstname:firstname,
+                        type: 2
+                    }).then(function(response){
+                        self.$emit('createNewWorker', {
+                            id : response.data,
+                            surname,
+                            firstname
+                        });
                     })
+
                 } else {
                     this.$emit('error',err);
                 }

@@ -21,30 +21,25 @@
         props: ['id', 'skillname', 'level','auth','worker_id'],
         methods:{
             deleteNote(){
+
                 event.stopPropagation();
                 let token= $('meta[name="csrf-token"]').attr("content");
                 let id=this.id;
                 let self=this;
 
-
-
-                $.ajax({
-                    method: 'post',
-                    url: 'deleteNote',
-                    data: {
-                        _token: token,
-                        id: id,
-                        worker_id: self.worker_id
-                    },
-                    success: function(point){
-                        deleteFromNotesArray(id);
-                        self.$emit('deleteNote', {
-                            id,
-                            point
-
-                        });
-                    }
+                axios.post('/deleteNote',{
+                    _token: token,
+                    id: id,
+                    worker_id: self.worker_id
+                }).then(function(response){
+                    deleteFromNotesArray(id);
+                    self.$emit('deleteNote', {
+                        id,
+                        point: response.data
+                    })
                 })
+
+
             }
         }
     }

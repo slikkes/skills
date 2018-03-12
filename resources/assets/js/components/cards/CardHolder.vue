@@ -32,7 +32,13 @@
 
         <div id="cardHolder">
             <errors v-if="err>-1" :message="messages[err].message" v-on:closeError="errorHandler"></errors>
-            <card v-for="card in cardsOrdered" :card="card" :skills="skills" :auth="auth" v-on:deleteWorker="deleteWorker" v-on:error="errorHandler"></card>
+            <card v-for="card in cardsOrdered"
+                  :card="card"
+                  :skills="skills"
+                  :auth="auth"
+                  v-on:deleteWorker="deleteWorker"
+                  v-on:error="errorHandler"
+                  v-on:flipped="flip"></card>
             <new-card v-on:createNewWorker="createNewWorker" v-on:error="errorHandler"></new-card>
         </div>
     </div>
@@ -48,6 +54,16 @@
     export default{
         mounted(){
             cardsTest=this.cards;
+        },
+        beforeUpdate(){
+            this.flipped.forEach(e=> {
+                $('#card'+e).flip('toggle');
+            });
+        },
+        updated(){
+            this.flipped.forEach(e=>{
+                $('#card'+e).flip('toggle');
+            });
         },
         components:{
             Card, Errors, NewCard
@@ -67,11 +83,11 @@
                 searchType:'point',
                 asc: false,
                 filterSkill:0,
-                filterName:""
+                filterName:"",
+                flipped: []
             }
         },
         watch:{
-            Cards:function(){console.log("cardwatch")},
         },
         methods:{
             errorHandler(err){
@@ -95,13 +111,19 @@
             deleteWorker(id){
 
                 for (let i=this.Cards.length-1;i>=0;i--){
-                    if(this.Cards[i].id==id){this.Cards.splice(i,1)}
+                    if(this.Cards[i].id===id){this.Cards.splice(i,1)}
                 }
             },
             filterNameInit(){
             },
             changedir(){
-                this.dir = this.dir == "asc" ? "desc" : "asc";
+                this.dir = this.dir === "asc" ? "desc" : "asc";
+            },
+            flip(id){
+
+                let i=this.flipped.indexOf(id);
+                if(i>-1){this.flipped.splice(i,1)}
+                else{this.flipped.push(id)}
             }
         },
         computed:{
@@ -133,29 +155,16 @@
                             let n=[];
                             c=[];
 
-
-                            notes.forEach(function(e){
+                            notes.forEach(e=>{
                                 if(e.skill_id==self.filterSkill){n.push([e.worker_id,e.level])}});
-
                             n=_.orderBy(n,1);
-
-
                             n.forEach(function(Ne){
                                 cardsTest.forEach(function(e){
                                     if(e.id==Ne[0]){c.push(e)}})})
 
-
-                            /*notes.forEach(function(e){
-                                if(e.skill_id==self.filterSkill){n.push(e.worker_id)}});
-
-                            cardsTest.forEach(function(e){
-                                if(_.includes(n,e.id)){c.push(e)}});*/
-
                         }else{
-
                             c= _.sortBy(this.Cards,'point');
                         }
-
                         break;
                 }
 

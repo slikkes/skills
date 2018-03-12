@@ -21,12 +21,12 @@ let Vue=require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+//Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 Vue.component('Card', require('./components/cards/Card.vue'));
 Vue.component('CardHolder', require('./components/cards/CardHolder.vue'));
 
-Vue.component('todo', require('./components/todo/App.vue'));
+//Vue.component('todo', require('./components/todo/App.vue'));
 
 const app = new Vue({
     el: '#cardApp'
