@@ -37,5 +37,5 @@ function startFlip(id){
         $("#card"+id).flip();
     })
 }
-
-import axios from 'axios';
+let cardsTest=[];
+//import axios from 'axios';

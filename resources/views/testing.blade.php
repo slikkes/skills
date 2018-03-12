@@ -21,22 +21,22 @@
 @stop
 
 @section('content')
-
+{{--
     <script type="module">
         let notes;
         axios.get('/axiosTest?worker_id=3')
             .then(function (response) {
                 notes=response.data;
-                console.log("ass");
             })
 
-    </script>
-   {{-- @foreach ($qwer as $qwe)
+    </script>--}}
+
+<script> let notes=[];</script>
+    @foreach ($qwer as $qwe)
         @foreach ($qwe->notes as $note)
             <script>notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));</script>
         @endforeach
     @endforeach
---}}
 
     <div id="cardApp"><card-holder :cards="{{$qwer}}" :skills="{{$skills}}" auth="@auth true @endauth"></card-holder></div>
 
