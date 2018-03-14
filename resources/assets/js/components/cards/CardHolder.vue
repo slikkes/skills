@@ -53,7 +53,12 @@
 
     export default{
         mounted(){
-            cardsTest=this.cards;
+            let self=this;
+            axios.get('workers').then(function(response){
+                console.log(response.data);
+                self.Cards=response.data[0];
+                self.skills=response.data[1];
+            })
         },
         beforeUpdate(){
             this.flipped.forEach(e=> {
@@ -69,10 +74,12 @@
             Card, Errors, NewCard
         },
 
-        props: ['cards','skills','auth'],
+        //props: ['cards','skills','auth'],
+        props: ['auth'],
         data(){
             return {
-                Cards: this.cards,
+                skills: [],
+                Cards:[],
                 err: -1,
                 messages:[
                     {message: "Choose skill!"},

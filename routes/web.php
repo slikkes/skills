@@ -45,7 +45,12 @@ Route::post('promiseTest', 'TestController@promiseTest');
 
 
 
-Route::get('test', 'TestController@index');
+//Route::get('test', 'TestController@index');
+Route::get('test',function(){
+    return view('testing');
+});
+Route::get('workers','TestController@workerData');
+
 Route::get('update_points','TestController@updatePoints');
 Route::post('deleting','TestController@delete');
 

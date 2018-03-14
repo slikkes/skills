@@ -21,7 +21,10 @@
 @stop
 
 @section('content')
+    <div id="edit">
+    <list></list>
 
+    </div>
 {{--
     <script type="module">
         let notes;
@@ -31,15 +34,15 @@
             })
 
     </script>--}}
-
-<script> let notes=[];</script>
+{{--<script> let notes=[];</script>
     @foreach ($qwer as $qwe)
         @foreach ($qwe->notes as $note)
             <script>notes.push(new Note({{$note->id}},{{$note->worker_id}},{{$note->skill_id}},{{$note->level}}));</script>
         @endforeach
-    @endforeach
+    @endforeach--}}
 
-    <div id="cardApp"><card-holder :cards="{{$qwer}}" :skills="{{$skills}}" auth="@auth true @endauth"></card-holder></div>
+   {{-- <div id="cardApp"><card-holder :cards="{{$qwer}}" :skills="{{$skills}}" auth="@auth true @endauth"></card-holder></div>--}}
+    <div id="cardApp"><card-holder auth="@auth true @endauth"></card-holder></div>
 
 
     <script src="{{URL::asset('js/asdf.js')}}"></script>

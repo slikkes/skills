@@ -20,6 +20,7 @@ class TestController extends Controller
             ->join('points','workers.id','=','points.worker_id')
             ->get();
         //->orderBy('points.point','desc')
+
     return view("testing")->with([
         'qwer'=>$qwer,
         'skills'=>$skills,]);
@@ -77,6 +78,18 @@ class TestController extends Controller
         /*$points=Point::find(request('worker_id'));
         return $points;*/
         //return $request->all();
+    }
+
+
+
+    public function workerData(){
+        $skills=(new workerService)->setSkills();
+        /*$qwer=Worker::select('workers.*','points.point')
+            ->join('points','workers.id','=','points.worker_id')
+            ->get();*/
+
+        $qwer=Worker::with('notes')->with('points')->get();
+        return [$qwer,$skills];
     }
 
 }

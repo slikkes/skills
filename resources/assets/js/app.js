@@ -7,10 +7,9 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+
 let _ = require('lodash');
 let axios= require('axios');
-//import Vue from 'vue';
 let Vue=require('vue');
 
 
@@ -23,16 +22,9 @@ let Vue=require('vue');
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.component('Card', require('./components/cards/Card.vue'));
-Vue.component('CardHolder', require('./components/cards/CardHolder.vue'));
-
-//Vue.component('todo', require('./components/todo/App.vue'));
-
-const app = new Vue({
-    el: '#cardApp'
-});
 
 /*
+Vue.component('todo', require('./components/todo/App.vue'));
 const todo= new Vue({
     el: '#app'
     });
@@ -40,4 +32,22 @@ const todo= new Vue({
 
 
 
-//Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
+Vue.component('CardHolder', require('./components/cards/CardHolder.vue').default);
+
+const app = new Vue({
+    el: '#cardApp'
+});
+
+
+/*Vue.component('List', require('./components/List.vue').default)
+import Editor from './components/Editor';
+
+var app = new Vue({
+    el:'#edit',
+});*/
+
+
+
+
+
+
