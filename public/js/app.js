@@ -17932,6 +17932,12 @@ module.exports = g;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(26);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
@@ -18031,12 +18037,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(26);
 
 /***/ }),
 /* 8 */
@@ -18506,6 +18506,8 @@ module.exports = Cancel;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NewCard_vue__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_axios__);
 //
 //
 //
@@ -18547,11 +18549,7 @@ module.exports = Cancel;
 //
 //
 //
-//
-//
-//
-//
-//
+
 
 
 
@@ -18562,8 +18560,7 @@ module.exports = Cancel;
 /* harmony default export */ __webpack_exports__["a"] = ({
     beforeMount: function beforeMount() {
         var self = this;
-        axios.get('workers').then(function (response) {
-            cardsTest = response.data[0];
+        __WEBPACK_IMPORTED_MODULE_4_axios___default.a.get('workers').then(function (response) {
             setNotes(response.data[0]);
             self.Cards = response.data[0];
             self.skills = response.data[1];
@@ -18583,11 +18580,11 @@ module.exports = Cancel;
         });
     },
 
+
     components: {
         Card: __WEBPACK_IMPORTED_MODULE_0__Card_vue__["a" /* default */], Errors: __WEBPACK_IMPORTED_MODULE_1__Errors_vue__["a" /* default */], NewCard: __WEBPACK_IMPORTED_MODULE_2__NewCard_vue__["a" /* default */]
     },
 
-    //props: ['cards','skills','auth'],
     props: ['auth'],
     data: function data() {
         return {
@@ -18603,7 +18600,7 @@ module.exports = Cancel;
         };
     },
 
-    watch: {},
+
     methods: {
         errorHandler: function errorHandler(err) {
             this.err = err;
@@ -18641,8 +18638,10 @@ module.exports = Cancel;
             }
         }
     },
+
     computed: {
         cardsOrdered: function cardsOrdered() {
+
             var self = this;
             var c = void 0;
             switch (this.searchType) {
@@ -18699,10 +18698,11 @@ module.exports = Cancel;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Note__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewNote__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Note_vue__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewNote_vue__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+//
 //
 //
 //
@@ -18761,10 +18761,7 @@ module.exports = Cancel;
 /* harmony default export */ __webpack_exports__["a"] = ({
     mounted: function mounted() {
 
-        console.log("card");
         startFlip(this.card.id);
-        // toggleNewNoteForm("#newNoteBtn"+this.card.id);
-        // updateToggleButtons();
     },
     updated: function updated() {
         $('.cards').flip();
@@ -18772,13 +18769,14 @@ module.exports = Cancel;
 
 
     components: {
-        note: __WEBPACK_IMPORTED_MODULE_0__Note__["a" /* default */],
-        NewNote: __WEBPACK_IMPORTED_MODULE_1__NewNote__["a" /* default */]
+        note: __WEBPACK_IMPORTED_MODULE_0__Note_vue__["a" /* default */],
+        NewNote: __WEBPACK_IMPORTED_MODULE_1__NewNote_vue__["a" /* default */]
     },
 
     props: ['card', 'skills', 'auth'],
 
     data: function data() {
+
         return {
             notes: this.card.notes,
             point: this.card.points.point,
@@ -18791,6 +18789,7 @@ module.exports = Cancel;
 
 
     watch: {
+
         'card': function card(newVal, oldVal) {
             this.notes = newVal.notes;
             this.point = newVal.points.point;
@@ -18823,8 +18822,9 @@ module.exports = Cancel;
             var token = $('meta[name="csrf-token"]').attr('content');
             var self = this;
 
-            axios.post('/deleteWorker', {
+            axios.post('/workers', {
                 _token: token,
+                type: "deleteWorker",
                 id: id
             }).then(function () {
                 self.$emit('deleteWorker', id);
@@ -18844,11 +18844,10 @@ module.exports = Cancel;
             var id = this.card.id;
             var self = this;
 
-            axios.post('/modifyWorkerName', {
+            axios.post('/workers', {
                 _token: token,
                 method: 'post',
-                url: 'modifyWorkerName',
-                type: 5,
+                type: "modifyName",
                 id: id,
                 surname: newSurname,
                 firstname: newFirstname
@@ -18908,8 +18907,9 @@ module.exports = Cancel;
             var id = this.id;
             var self = this;
 
-            axios.post('/deleteNote', {
+            axios.post('/workers', {
                 _token: token,
+                type: "deleteNote",
                 id: id,
                 worker_id: self.worker_id
             }).then(function (response) {
@@ -18973,12 +18973,12 @@ module.exports = Cancel;
                 var level = parseInt(this.level);
                 var self = this;
 
-                axios.post('/asdf', {
+                axios.post('/workers', {
                     _token: token,
+                    type: "newNote",
                     worker_id: worker_id,
                     skill_id: skill_id,
-                    level: level,
-                    type: 1
+                    level: level
                 }).then(function (response) {
                     self.$emit('create-note', {
                         worker_id: worker_id,
@@ -19066,11 +19066,11 @@ module.exports = Cancel;
                 var token = $('meta[name="csrf-token"]').attr('content');
                 var self = this;
 
-                axios.post('/asdf', {
+                axios.post('/workers', {
                     _token: token,
+                    type: "newWorker",
                     surname: surname,
-                    firstname: firstname,
-                    type: 2
+                    firstname: firstname
                 }).then(function (response) {
                     self.$emit('createNewWorker', {
                         id: response.data,
@@ -19107,7 +19107,7 @@ module.exports = __webpack_require__(70);
 __webpack_require__(22);
 
 var _ = __webpack_require__(4);
-var axios = __webpack_require__(7);
+var axios = __webpack_require__(6);
 var Vue = __webpack_require__(44);
 
 /**
@@ -19164,7 +19164,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(7);
+window.axios = __webpack_require__(6);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -31991,7 +31991,7 @@ if (typeof jQuery === 'undefined') {
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
 var Axios = __webpack_require__(28);
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 
 /**
  * Create an instance of Axios
@@ -32074,7 +32074,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(37);
 var dispatchRequest = __webpack_require__(38);
@@ -32613,7 +32613,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(39);
 var isCancel = __webpack_require__(12);
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 var isAbsoluteURL = __webpack_require__(40);
 var combineURLs = __webpack_require__(41);
 
@@ -44184,7 +44184,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n#cardHolder[data-v-1e8c653f]{\n    margin:0 auto;\n    padding:40px 0 40px 0;\n    float:left;\n    background-color:rgba(255,255,255,.2);\n    width:90%;\n    height:820px;\n    overflow-y: scroll;\n    overflow-x:hidden;\n    position:relative;\n}\n#filter[data-v-1e8c653f]{\n    width:90%;\n    height:80px;\n    padding:20px 0 20px 0;\n    background-color: #ad8a8a;\n}\n.filterElements[data-v-1e8c653f]{\n    width:175px;\n    float:left;\n}\n\n", ""]);
+exports.push([module.i, "\n#cardHolder[data-v-1e8c653f]{\n    margin:0 auto;\n    padding:40px 0 40px 0;\n    float:left;\n    background-color:rgba(255,255,255,.2);\n    width:90%;\n    height:90%;\n    overflow-y: scroll;\n    overflow-x:hidden;\n    position:relative;\n}\n#filter[data-v-1e8c653f]{\n    width:90%;\n    height:80px;\n    padding:20px 0 20px 0;\n    background-color: #ad8a8a;\n}\n.filterElements[data-v-1e8c653f]{\n    width:175px;\n    float:left;\n}\n\n", ""]);
 
 // exports
 

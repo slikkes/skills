@@ -93,7 +93,7 @@
                 </div>
             @endif
                 <a href="{{url('/asdf')}}"><div class="btn">asdf</div></a><br>
-                <a href="{{url('/test')}}"><div class="btn">test</div></a>
+                <a href="{{url('/testing')}}"><div class="btn">test</div></a>
             <div class="content">
                 <div class="title m-b-md">
                     Laravel

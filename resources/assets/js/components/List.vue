@@ -1,13 +1,13 @@
 <template>
     <div>
-        <h1>My To Do List</h1>
+        <h1>{{text}}</h1>
         </br>
         <input v-model="newItem">
         <button @click ="addItemToList">add</button>
         <!-- displays list -->
-        <ul>
+        <!--<ul>
             <li v-for="item in listItems">{{ item }}</li>
-        </ul>
+        </ul>-->
     </div>
 </template>
 
@@ -17,6 +17,7 @@
         mounted(){
             console.log('list mounted')
         },
+        props:['text'],
         data () {
             return {
                 listItems: ['buy food', 'play games', 'sleep'],

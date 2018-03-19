@@ -1,12 +1,16 @@
+/*
 import Vue from 'vue';
 import List from '../components/List.vue';
 
 describe('List.vue', () => {
 
-    const Constructor = Vue.extend(List);
-    const ListComponent = new Constructor().$mount();
+    function getRenderedText(Component, propsData){
+        const Constructor = Vue.extend(Component);
+        const vm = new Constructor({propsData:propsData}).$mount();
+        return vm.$el.textContent;
+    }
 
-    it('displays items from the list', () => {
+    /!*it('displays items from the list', () => {
 
         expect(ListComponent.$el.textContent).toContain('play games');
         });
@@ -22,5 +26,9 @@ describe('List.vue', () => {
 
         expect(ListComponent.$el.textContent).toContain('brush my teeth');
         expect(ListComponent.listItems).toContain('brush my teeth');
+    })*!/
+    it('renderstext',()=>{
+        console.log(getRenderedText(List, {text:"mivan"}))
     })
 });
+*/

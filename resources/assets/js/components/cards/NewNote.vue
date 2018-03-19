@@ -45,12 +45,12 @@
                     const level = parseInt(this.level);
                     let self = this;
 
-                    axios.post('/asdf',{
+                    axios.post('/workers',{
                         _token: token,
+                        type: "newNote",
                         worker_id: worker_id,
                         skill_id: skill_id,
                         level: level,
-                        type: 1
                     }).then(function(response){
                         self.$emit('create-note', {
                             worker_id,

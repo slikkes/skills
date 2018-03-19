@@ -13,7 +13,7 @@
         }
         #cardApp{
             width:80%;
-            height:820px;
+            height:90%;
             margin:0 auto;
         }
 

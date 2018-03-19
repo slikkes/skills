@@ -1,15 +1,21 @@
 import Vue from 'vue';
 import CardHolder from '../components/cards/CardHolder.vue';
 
+
 describe('CardHolder.vue',()=>{
 
-    const constructor =Vue.extend(NewCard);
-    const CardHolderComponent=new constructor().vue.$mount();
+
+    it('cards is defined',()=>{
+        const defaultData=CardHolder.data();
+        expect(defaultData.Cards).toBeDefined();
+        console.log(defaultData.Cards);
+    })
+
+    it('has beforeMount hook',()=>{
+        expect(typeof CardHolder.beforeMount).toBe('function');
+    })
 
 
-    console.log("-------------");
 
-   /* it('cards is defined',()=>{
-        expect(CardHolderComponent.$el.cards).toBeDefined();
-    })*/
+
 });

@@ -27,10 +27,11 @@
                 let id=this.id;
                 let self=this;
 
-                axios.post('/deleteNote',{
+                axios.post('/workers',{
                     _token: token,
+                    type:"deleteNote",
                     id: id,
-                    worker_id: self.worker_id
+                    worker_id: self.worker_id,
                 }).then(function(response){
                     deleteFromNotesArray(id);
                     self.$emit('deleteNote', {

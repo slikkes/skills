@@ -39,95 +39,45 @@ class workerService
 
            $point=Point::find(request('worker_id'));
            $response=[$note->id, $point->point];
+
            return $response;
     }
 
 
-
-    public function changeNote()
-    {
+    public function changeNote(){
 
         $note=Note::find(request('id'));
         $note->level=request('level');
         $note->save();
 
-        return back();
     }
 
 
-
-    public function newWorker($request)
-    {
-
-        $request->validate([
-            'surname' => 'required|max:20',
-            'firstname' => 'required|max:20',
-        ]);
+    public function newWorker($request){
 
         $worker = new Worker();
         $worker->surname = request('surname');
         $worker->firstname = request('firstname');
         $worker->save();
 
-
         return $worker->id;
     }
 
 
-
-    /*public function modifyWorkerName(){
-
-        $worker=Worker::find(request('id'));
-        $names=request('newValue');
-        switch ($names[0]){
-            case "surname":
-                $worker->surname=$names[1];
-                break;
-            case "firstname":
-                $worker->firstname=$names[1];
-                break;
-            case "surnamefirstname":
-                $worker->surname=$names[1];
-                $worker->firstname=$names[2];
-        }
-       $worker->save();
-    }*/
-
     public function modifyWorkerName(){
+
         $worker=Worker::find(request('id'));
         $worker->surname=request('surname');
         $worker->firstname=request('firstname');
         $worker->save();
     }
 
-    public function filter(){
 
-        $skill_id = request('skill_id');
+    public function deleteNote(Request $request){
 
-        if ($skill_id[0] > 0) {
+        Note::find(request('id'))->delete();
+        $point=Point::find(request('worker_id'));
 
-            $qwer = Worker::select('workers.*', 'notes.skill_id', 'notes.level')
-                ->join('notes', 'workers.id', '=', 'notes.worker_id')
-                ->whereIn('notes.skill_id', request('skill_id'))
-                ->whereBetween('notes.level', [request('minLevel'), request('maxLevel')])
-                ->orderBy('notes.level', 'desc')
-                ->get();
-
-        } else {
-
-            $qwer = Worker::select('workers.*', 'points.point')
-                ->join('points', 'workers.id', '=', 'points.worker_id')
-                ->orderBy('points.point', 'desc')->get();
-        }
-        return $qwer;
+        return $point->point;
     }
-
-
-    public function deleteWorker(){
-        Worker::find(request('id'))->delete();
-        return back();
-    }
-
-
-
 }

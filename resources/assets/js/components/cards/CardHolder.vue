@@ -23,11 +23,6 @@
             <div class="filterElements" v-if="searchType=='name'">
                 name:<input  v-model="filterName" type="text">
             </div>
-
-
-
-
-
         </div>
 
         <div id="cardHolder">
@@ -50,12 +45,14 @@
     import Errors from './Errors.vue';
     import NewCard from './NewCard.vue';
     import _ from 'lodash';
+    import axios from 'axios';
 
     export default{
+
+
         beforeMount(){
             let self=this;
             axios.get('workers').then(function(response){
-                cardsTest=response.data[0];
                 setNotes(response.data[0]);
                 self.Cards=response.data[0];
                 self.skills=response.data[1];
@@ -64,25 +61,24 @@
 
         mounted(){
             console.log("cardholder");
-
-
-
         },
+
         beforeUpdate(){
             this.flipped.forEach(e=> {
                 $('#card'+e).flip('toggle');
             });
         },
+
         updated(){
             this.flipped.forEach(e=>{
                 $('#card'+e).flip('toggle');
             });
         },
+
         components:{
             Card, Errors, NewCard
         },
 
-        //props: ['cards','skills','auth'],
         props: ['auth'],
         data(){
             return {
@@ -102,8 +98,7 @@
                 flipped: []
             }
         },
-        watch:{
-        },
+
         methods:{
             errorHandler(err){
                 this.err=err;
@@ -129,9 +124,11 @@
                     if(this.Cards[i].id===id){this.Cards.splice(i,1)}
                 }
             },
+
             changedir(){
                 this.dir = this.dir === "asc" ? "desc" : "asc";
             },
+
             flip(id){
 
                 let i=this.flipped.indexOf(id);
@@ -139,8 +136,11 @@
                 else{this.flipped.push(id)}
             }
         },
+
         computed:{
+
             cardsOrdered(){
+
                 let self= this;
                 let c;
                 switch(this.searchType){
@@ -169,7 +169,8 @@
                             c=[];
 
                             notes.forEach(e=>{
-                                if(e.skill_id==self.filterSkill){n.push([e.worker_id,e.level])}});
+                                if(e.skill_id==self.filterSkill){n.push([e.worker_id,e.level])}
+                            });
                             n=_.orderBy(n,1);
                             n.forEach(function(Ne){
                                 cardsTest.forEach(function(e){
@@ -194,7 +195,7 @@
         float:left;
         background-color:rgba(255,255,255,.2);
         width:90%;
-        height:820px;
+        height:90%;
         overflow-y: scroll;
         overflow-x:hidden;
         position:relative;

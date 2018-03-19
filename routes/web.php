@@ -12,53 +12,23 @@ use App\Worker;
 |
 */
 
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-
-Route::get('asdf','workersController@index');
-
-Route::post('asdf','workersController@form');
-
-
-
-
-Route::post('deleteWorker','workersController@deleteWorker');
-
-Route::post('deleteNote','workersController@deleteNote');
-
-Route::post('modifyWorkerName','workersController@form');
-
-
-
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
-Route::post('promiseTest', 'TestController@promiseTest');
-
-
-
-//Route::get('test', 'TestController@index');
-Route::get('test',function(){
+Route::get('testing', function(){
     return view('testing');
 });
-Route::get('workers','TestController@workerData');
+
+
+Route::get('workers','workersController@workerData');
+Route::post('workers','workersController@workerChange');
+
+
 
 Route::get('update_points','TestController@updatePoints');
-Route::post('deleting','TestController@delete');
-
-
-Route::get('axiosTest', 'TestController@axiosGet');
-
-
-
-Route::get('todo', function(){
-    return view('todo');
-});

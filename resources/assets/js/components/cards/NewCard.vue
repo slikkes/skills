@@ -27,6 +27,7 @@
         },
 
         methods:{
+
             createNewWorker(){
                 const surname=this.surname;
                 const firstname=this.firstname;
@@ -36,11 +37,11 @@
                     let token = $('meta[name="csrf-token"]').attr('content');
                     let self = this;
 
-                    axios.post('/asdf',{
+                    axios.post('/workers',{
                         _token: token,
+                        type:"newWorker",
                         surname:surname,
                         firstname:firstname,
-                        type: 2
                     }).then(function(response){
                         self.$emit('createNewWorker', {
                             id : response.data,

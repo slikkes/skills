@@ -84,9 +84,6 @@ class TestController extends Controller
 
     public function workerData(){
         $skills=(new workerService)->setSkills();
-        /*$qwer=Worker::select('workers.*','points.point')
-            ->join('points','workers.id','=','points.worker_id')
-            ->get();*/
 
         $qwer=Worker::with('notes')->with('points')->get();
         return [$qwer,$skills];

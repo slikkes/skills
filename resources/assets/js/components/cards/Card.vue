@@ -44,22 +44,22 @@
 
             <button class="newNoteBtn" :id="'newNoteBtn'+card.id" @click="toggle">{{toggleButton}}</button>
             <new-note :skills="skills" :id="card.id" v-on:create-note="createNote" v-on:error="errorHandler"></new-note>
+
         </div>
     </div>
 </template>
 
 <script type = "text/javascript">
-    import note from './Note';
-    import NewNote from './NewNote';
+    import note from './Note.vue';
+    import NewNote from './NewNote.vue';
     import _ from 'lodash';
 
     export default {
+
         mounted(){
 
-            console.log("card");
             startFlip(this.card.id);
-           // toggleNewNoteForm("#newNoteBtn"+this.card.id);
-           // updateToggleButtons();
+
         },
 
 
@@ -78,6 +78,7 @@
         props: ['card','skills','auth'],
 
         data(){
+
             return{
                 notes: this.card.notes,
                 point: this.card.points.point,
@@ -91,6 +92,7 @@
 
 
         watch:{
+
             'card':function(newVal,oldVal){
                 this.notes=newVal.notes;
                 this.point=newVal.points.point;
@@ -124,8 +126,9 @@
                 let token = $('meta[name="csrf-token"]').attr('content');
                 let self=this;
 
-                axios.post('/deleteWorker',{
+                axios.post('/workers',{
                     _token: token,
+                    type:"deleteWorker",
                     id: id,
                 }).then(function(){
                     self.$emit('deleteWorker', id)
@@ -148,11 +151,10 @@
                 let id=this.card.id;
                 let self=this;
 
-                axios.post('/modifyWorkerName',{
+                axios.post('/workers',{
                     _token: token,
                     method: 'post',
-                    url: 'modifyWorkerName',
-                    type: 5,
+                    type: "modifyName",
                     id: id,
                     surname: newSurname,
                     firstname: newFirstname
@@ -173,7 +175,7 @@
             toggle(){
                 event.stopPropagation();
                 $('#newNoteForm'+this.card.id).slideToggle('slow');
-                this.toggleButton = this.toggleButton === "new"?"cancel":"new";
+                this.toggleButton = this.toggleButton === "new" ? "cancel" : "new";
             },
 
             changeState(){

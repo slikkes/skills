@@ -11,6 +11,9 @@
 
 <script>
     export default{
+        mounted(){
+          position();
+        },
         props:['message'],
         methods:{
             close(){
@@ -18,6 +21,10 @@
                 this.$emit('closeError', err);
             }
         }
+    }
+    function position(){
+        let ch=$("cardHolder")[0].getBoundingClientRect();
+        $("#error").css({"top:"})
     }
 </script>
 
