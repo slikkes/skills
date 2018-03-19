@@ -38,4 +38,14 @@ function startFlip(id){
     })
 }
 let cardsTest=[];
+let notes=[];
+
+function setNotes(cards){
+
+    cards.forEach(card=>{
+        card.notes.forEach(note=>{
+            notes.push(note);
+        })
+    })
+}
 //import axios from 'axios';

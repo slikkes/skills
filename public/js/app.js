@@ -18560,13 +18560,17 @@ module.exports = Cancel;
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    mounted: function mounted() {
+    beforeMount: function beforeMount() {
         var self = this;
         axios.get('workers').then(function (response) {
-            console.log(response.data);
+            cardsTest = response.data[0];
+            setNotes(response.data[0]);
             self.Cards = response.data[0];
             self.skills = response.data[1];
         });
+    },
+    mounted: function mounted() {
+        console.log("cardholder");
     },
     beforeUpdate: function beforeUpdate() {
         this.flipped.forEach(function (e) {
@@ -18624,7 +18628,6 @@ module.exports = Cancel;
                 }
             }
         },
-        filterNameInit: function filterNameInit() {},
         changedir: function changedir() {
             this.dir = this.dir === "asc" ? "desc" : "asc";
         },
@@ -18657,7 +18660,7 @@ module.exports = Cancel;
 
                 case "point":
 
-                    c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.sortBy(this.Cards, 'point');
+                    c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.sortBy(this.Cards, 'points.point');
                     break;
 
                 case "skill":
@@ -18681,7 +18684,7 @@ module.exports = Cancel;
                             });
                         });
                     } else {
-                        c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.sortBy(this.Cards, 'point');
+                        c = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.sortBy(this.Cards, 'points.point');
                     }
                     break;
             }
@@ -18757,6 +18760,8 @@ module.exports = Cancel;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     mounted: function mounted() {
+
+        console.log("card");
         startFlip(this.card.id);
         // toggleNewNoteForm("#newNoteBtn"+this.card.id);
         // updateToggleButtons();
@@ -18776,7 +18781,7 @@ module.exports = Cancel;
     data: function data() {
         return {
             notes: this.card.notes,
-            point: this.card.point,
+            point: this.card.points.point,
             editMode: false,
             newSurname: this.card.surname,
             newFirstname: this.card.firstname,
@@ -18788,7 +18793,7 @@ module.exports = Cancel;
     watch: {
         'card': function card(newVal, oldVal) {
             this.notes = newVal.notes;
-            this.point = newVal.point;
+            this.point = newVal.points.point;
         }
     },
 
@@ -18800,7 +18805,7 @@ module.exports = Cancel;
                 skill_id: response.skill_id,
                 level: response.level
             });
-            this.card.point = this.point = response.point;
+            this.card.points.point = this.point = response.point;
             notes.push(new Note(response.note_id, this.card.id, response.skill_id, response.level));
         },
         deleteNote: function deleteNote(response) {
@@ -18810,7 +18815,7 @@ module.exports = Cancel;
                     this.notes.splice(i, 1);
                 }
             }
-            this.card.point = this.point = response.point;
+            this.card.points.point = this.point = response.point;
         },
         deleteWorker: function deleteWorker() {
 

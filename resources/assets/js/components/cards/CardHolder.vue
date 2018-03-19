@@ -52,13 +52,21 @@
     import _ from 'lodash';
 
     export default{
-        mounted(){
+        beforeMount(){
             let self=this;
             axios.get('workers').then(function(response){
-                console.log(response.data);
+                cardsTest=response.data[0];
+                setNotes(response.data[0]);
                 self.Cards=response.data[0];
                 self.skills=response.data[1];
             })
+        },
+
+        mounted(){
+            console.log("cardholder");
+
+
+
         },
         beforeUpdate(){
             this.flipped.forEach(e=> {
@@ -121,8 +129,6 @@
                     if(this.Cards[i].id===id){this.Cards.splice(i,1)}
                 }
             },
-            filterNameInit(){
-            },
             changedir(){
                 this.dir = this.dir === "asc" ? "desc" : "asc";
             },
@@ -152,7 +158,7 @@
 
                     case "point":
 
-                        c= _.sortBy(this.Cards,'point');
+                        c= _.sortBy(this.Cards,'points.point');
                         break;
 
                     case "skill":
@@ -170,7 +176,7 @@
                                     if(e.id==Ne[0]){c.push(e)}})})
 
                         }else{
-                            c= _.sortBy(this.Cards,'point');
+                            c= _.sortBy(this.Cards,'points.point');
                         }
                         break;
                 }

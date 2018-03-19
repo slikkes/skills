@@ -6,10 +6,8 @@ describe('List.vue', () => {
     const Constructor = Vue.extend(List);
     const ListComponent = new Constructor().$mount();
 
-
     it('displays items from the list', () => {
 
-        console.log(ListComponent.listItems);
         expect(ListComponent.$el.textContent).toContain('play games');
         });
 
@@ -25,6 +23,4 @@ describe('List.vue', () => {
         expect(ListComponent.$el.textContent).toContain('brush my teeth');
         expect(ListComponent.listItems).toContain('brush my teeth');
     })
-
-
 });

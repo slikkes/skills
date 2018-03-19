@@ -55,6 +55,8 @@
 
     export default {
         mounted(){
+
+            console.log("card");
             startFlip(this.card.id);
            // toggleNewNoteForm("#newNoteBtn"+this.card.id);
            // updateToggleButtons();
@@ -78,7 +80,7 @@
         data(){
             return{
                 notes: this.card.notes,
-                point: this.card.point,
+                point: this.card.points.point,
                 editMode: false,
                 newSurname: this.card.surname,
                 newFirstname: this.card.firstname,
@@ -91,7 +93,7 @@
         watch:{
             'card':function(newVal,oldVal){
                 this.notes=newVal.notes;
-                this.point=newVal.point;
+                this.point=newVal.points.point;
             }
         },
 
@@ -104,7 +106,7 @@
                     skill_id: response.skill_id,
                     level: response.level
                 });
-                this.card.point=this.point=response.point;
+                this.card.points.point=this.point=response.point;
                 notes.push(new Note(response.note_id,this.card.id,response.skill_id,response.level));
             },
 
@@ -113,7 +115,7 @@
                 for (let i=this.card.notes.length-1;i>=0;i--){
                     if(this.notes[i].id==response.id){this.notes.splice(i,1)}
                         }
-                this.card.point=this.point=response.point;
+                this.card.points.point=this.point=response.point;
             },
 
             deleteWorker(){
