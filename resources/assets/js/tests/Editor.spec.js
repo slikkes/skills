@@ -1,3 +1,4 @@
+/*
 //Test file "editor.spec.js"
 
 import Editor from '../components/Editor.js';
@@ -9,3 +10,4 @@ describe('Editor', ()=>{
         expect(defaultData.input).toBe('# Hello!')
     });
 });
+*/

@@ -11,10 +11,9 @@
 
 <script>
     export default{
-        mounted(){
-          position();
-        },
+
         props:['message'],
+
         methods:{
             close(){
                 let err=-1;
@@ -22,10 +21,7 @@
             }
         }
     }
-    function position(){
-        let ch=$("cardHolder")[0].getBoundingClientRect();
-        $("#error").css({"top:"})
-    }
+
 </script>
 
 <style>
@@ -37,10 +33,13 @@
         z-index:1;
     }
     #errorMessage{
-        width:70%;
+        width:50%;
         height:20%;
         background-color:white;
-        margin:130px auto;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-left: -25%;
         text-align:center;
         color:red;
         font-size:32px;

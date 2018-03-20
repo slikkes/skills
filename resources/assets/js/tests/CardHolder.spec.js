@@ -1,3 +1,4 @@
+/*
 import Vue from 'vue';
 import CardHolder from '../components/cards/CardHolder.vue';
 
@@ -19,3 +20,4 @@ describe('CardHolder.vue',()=>{
 
 
 });
+*/

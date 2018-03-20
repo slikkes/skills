@@ -22,7 +22,36 @@
 
 @section('content')
 
-    <div id="cardApp"><card-holder auth="@auth true @endauth"></card-holder></div>
+    <div id="cardApp">
+
+        {{--<card-holder auth="@auth true @endauth"></card-holder>--}}
+        {{--<list :items="['buy food', 'play games', 'sleep']"></list>
+--}}
+
+        <todo-container></todo-container>
+    </div>
+
+
+    <div id="count"></div>
+    <script>
+        let counter =new Vue({
+            // state
+            el: count,
+            data () {
+                return {
+                    count: 0
+                }
+            },
+            // view
+            template: '<div>@{{ count }}</div>',
+            // actions
+            methods: {
+                increment () {
+                    this.count++
+                }
+            }
+        })
+    </script>
 
     <script src="{{URL::asset('js/asdf.js')}}"></script>
     <script src="{{URL::asset('js/app.js')}}"></script>

@@ -31,8 +31,9 @@ const todo= new Vue({
 */
 
 
-
+Vue.component('List',require('./components/todo/List.vue').default);
 Vue.component('CardHolder', require('./components/cards/CardHolder.vue').default);
+Vue.component('TodoContainer', require('./components/todo/TodoContainer.vue').default);
 
 const app = new Vue({
     el: '#cardApp'

@@ -5,22 +5,23 @@
         <input v-model="newItem">
         <button @click ="addItemToList">add</button>
         <!-- displays list -->
-        <!--<ul>
+        <ul>
             <li v-for="item in listItems">{{ item }}</li>
-        </ul>-->
+        </ul>
     </div>
 </template>
 
 <script>
     export default {
         name: 'list',
-        mounted(){
-            console.log('list mounted')
-        },
-        props:['text'],
+
+        props:['items'],
+
         data () {
+
             return {
-                listItems: ['buy food', 'play games', 'sleep'],
+                text: "test",
+                listItems: this.items,
                 newItem:'',
             }
         },

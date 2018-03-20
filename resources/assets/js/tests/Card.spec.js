@@ -1,3 +1,4 @@
+/*
 import Vue from 'vue';
 import Card from '../components/cards/Card.vue';
 
@@ -53,3 +54,4 @@ describe ('Card.vue',()=>{
     })
 
 })
+*/

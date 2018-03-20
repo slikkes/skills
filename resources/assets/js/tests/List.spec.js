@@ -1,21 +1,32 @@
-/*
 import Vue from 'vue';
-import List from '../components/List.vue';
+import List from '../components/todo/List.vue';
+import { shallow } from 'vue-test-utils'
 
 describe('List.vue', () => {
 
     function getRenderedText(Component, propsData){
+
         const Constructor = Vue.extend(Component);
         const vm = new Constructor({propsData:propsData}).$mount();
-        return vm.$el.textContent;
+        return vm.$el;
     }
 
-    /!*it('displays items from the list', () => {
 
-        expect(ListComponent.$el.textContent).toContain('play games');
+    it('displays items from the list', () => {
+
+        let ListComponent=getRenderedText(List,{items:['buy food', 'play games', 'sleep']});
+
+         expect(ListComponent.textContent).toContain('play games');
         });
 
-    it('adds a new item to list on click',()=>{
+        it('works', () => {
+            const wrapper = shallow(List);
+        })
+
+
+
+
+   /* it('adds a new item to list on click',()=>{
 
         ListComponent.newItem = 'brush my teeth';
 
@@ -26,9 +37,8 @@ describe('List.vue', () => {
 
         expect(ListComponent.$el.textContent).toContain('brush my teeth');
         expect(ListComponent.listItems).toContain('brush my teeth');
-    })*!/
+    })
     it('renderstext',()=>{
         console.log(getRenderedText(List, {text:"mivan"}))
-    })
+    })*/
 });
-*/
