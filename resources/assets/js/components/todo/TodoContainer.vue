@@ -11,6 +11,7 @@
 
 <script>
     import TodoItem from './TodoItem.vue';
+    //import $store from './store.js';
     export default{
 
         name:'index',
@@ -21,7 +22,6 @@
 
         methods: {
             complete(id){
-                console.log('toggle_complete'+id);
                 this.$store.commit('TOGGLE_COMPLETE', {id})
             }
         }

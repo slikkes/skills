@@ -1,0 +1,22 @@
+body{
+    background-color:rgba(0,0,0,.2);
+}
+
+#VueApp{
+    width:80%;
+    height:90%;
+    margin:0 auto;
+}
+
+#backButton{
+    display:block;
+    padding:16px 50px;
+    background-color:rgba(140,30,10,.8);
+    cursor:pointer;
+    transition:.5s;
+    font-weight: bold;
+    color:white;
+    text-decoration:none;
+    position:fixed;
+    bottom:25px;
+}

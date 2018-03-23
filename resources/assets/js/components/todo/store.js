@@ -1,11 +1,12 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state={
     todos:{},
-    ids:[]
+    ids:[],
+    asd:[]
 }
 
 export const mutations={
@@ -16,11 +17,11 @@ export const mutations={
 
     CREATE_TODO(state, {text}){{
 
-        let id= state.ids.length+1
+        let id= state.ids.length+1;
 
         state.todos= Object.assign({},
             state.todos,{
-            [id]:{text,complete:text}
+            [id]:{text,complete:false}
         })
 
         state.ids.push(id)

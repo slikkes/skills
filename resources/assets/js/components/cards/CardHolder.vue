@@ -171,10 +171,14 @@
                             notes.forEach(e=>{
                                 if(e.skill_id==self.filterSkill){n.push([e.worker_id,e.level])}
                             });
+
                             n=_.orderBy(n,1);
-                            n.forEach(function(Ne){
-                                cardsTest.forEach(function(e){
-                                    if(e.id==Ne[0]){c.push(e)}})})
+                            console.log(n);
+                            n.forEach(function(queryElement){
+                                self.Cards.forEach( (card)=>{
+                                    if(card.id==queryElement[0]){c.push(card)}
+                                })
+                            })
 
                         }else{
                             c= _.sortBy(this.Cards,'points.point');
@@ -195,7 +199,7 @@
         float:left;
         background-color:rgba(255,255,255,.2);
         width:90%;
-        height:90%;
+        height:800px;
         overflow-y: scroll;
         overflow-x:hidden;
         position:relative;

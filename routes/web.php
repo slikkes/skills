@@ -21,6 +21,10 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('workerskills', function(){
+    return view('asdf');
+});
+
 Route::get('testing', function(){
     return view('testing');
 });
@@ -32,3 +36,12 @@ Route::post('workers','workersController@workerChange');
 
 
 Route::get('update_points','TestController@updatePoints');
+
+
+
+Route::prefix('commentApi')->group(function(){
+
+    Route::resource('comments','CommentsController');
+
+    Route::put('/comments/{comment}/toggleFavourite','CommentsController@toggleFavourite');
+});

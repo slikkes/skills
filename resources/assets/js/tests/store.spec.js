@@ -18,9 +18,11 @@ describe('mutations',()=>{
             ids:[],
         }
 
-        mutations.CREATE_TODO(state, {text:'New todo'})
+        mutations.CREATE_TODO(state, {text:'New todo', complete:false})
 
-        expect(state.todos[1]).toHaveProperty('text')
+        console.log(Object.keys(state.todos[1]));
+
+        expect(Object.keys(state.todos[1]).includes('text')).toBe(true);
         expect(state.todos[1].text).toEqual('New todo')
         expect(state.ids.length).toBe(1)
     })

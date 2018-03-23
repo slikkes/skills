@@ -20,7 +20,7 @@ try {
  */
 
 window.axios = require('axios');
-
+window.vuex= require('vuex');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

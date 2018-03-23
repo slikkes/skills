@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title','TEST')
 @section('import')
-{{--<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/asdfStyle.css') }}">--}}
+{{--<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/workerSkillsStyle.css') }}">--}}
 <script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{URL::asset('js/Note.js')}}"></script>
 <script src="{{URL::asset('js/CardsHelper.js')}}"></script>
@@ -11,7 +11,7 @@
         body{
             background-color:rgba(0,0,0,.2);
         }
-        #cardApp{
+        #VueApp{
             width:80%;
             height:90%;
             margin:0 auto;
@@ -22,36 +22,15 @@
 
 @section('content')
 
-    <div id="cardApp">
-
-        {{--<card-holder auth="@auth true @endauth"></card-holder>--}}
-        {{--<list :items="['buy food', 'play games', 'sleep']"></list>
---}}
-
-        <todo-container></todo-container>
-    </div>
+  <div id="VueApp">
 
 
-    <div id="count"></div>
-    <script>
-        let counter =new Vue({
-            // state
-            el: count,
-            data () {
-                return {
-                    count: 0
-                }
-            },
-            // view
-            template: '<div>@{{ count }}</div>',
-            // actions
-            methods: {
-                increment () {
-                    this.count++
-                }
-            }
-        })
-    </script>
+
+
+
+  </div>
+
+
 
     <script src="{{URL::asset('js/asdf.js')}}"></script>
     <script src="{{URL::asset('js/app.js')}}"></script>
